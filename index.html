@@ -89,8 +89,11 @@
 </section>
 
 <section class="video-band" id="experience">
-  <div class="video-stage">
+  <div class="video-stage" id="videoStage">
     <img class="poster" src="assets/img/experience-poster.jpg" alt="">
+    <video class="exp-video" id="expVideo" playsinline preload="none" controls poster="assets/img/experience-poster.jpg">
+      <source src="assets/video/experience.mp4" type="video/mp4">
+    </video>
     <div class="video-inner reveal">
       <button class="play" id="playBtn" aria-label="Play the experience video">
         <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
@@ -98,7 +101,6 @@
       <span class="eyebrow">See it live</span>
       <h2 style="margin-top:14px">Watch the smoke settle.</h2>
       <p>Some things you have to see. The full ceremony — torch, smoke, and the first pour — in under a minute.</p>
-      <div class="video-note">◇ Your experience video drops in here</div>
     </div>
   </div>
 </section>

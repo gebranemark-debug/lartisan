@@ -41,9 +41,14 @@
     });
   });
 
-  // ===== play button (placeholder until real video) =====
+  // ===== experience video: loads only on tap (preload=none); poster shows until then =====
+  const expStage = document.getElementById('videoStage');
+  const expVideo = document.getElementById('expVideo');
   document.getElementById('playBtn').addEventListener('click', ()=>{
-    alert("Your experience video will play here once you add it. For now this is a placeholder.");
+    expStage.classList.add('playing');           // reveal the video, hide the poster overlay
+    expVideo.play().catch(()=>{                   // user tapped, so sound is allowed;
+      expVideo.muted = true; expVideo.play();     // fall back to muted only if a browser blocks it
+    });
   });
 
   // ===== flavour guide =====
