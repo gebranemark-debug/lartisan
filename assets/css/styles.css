@@ -264,5 +264,31 @@
     .product-grid{grid-template-columns:1fr;gap:34px}
   }
 
+  /* ===== WHY OUR KIT STANDS OUT (comparison) ===== */
+  .compare{border:1px solid var(--line);border-radius:6px;overflow:hidden;max-width:900px;margin:0 auto}
+  .compare-head,.compare-row{display:grid;grid-template-columns:1.25fr 1fr 1fr}
+  .compare-head{background:linear-gradient(160deg,var(--walnut-2),var(--ink))}
+  .compare-head>div{padding:16px 18px;font-family:var(--util);text-transform:uppercase;letter-spacing:.14em;font-size:13px;color:var(--parchment-dim)}
+  .compare-head .compare-us{color:var(--brass-bright)}
+  .compare-row>div{padding:15px 18px;border-top:1px solid var(--line-soft);font-size:16px;display:flex;align-items:center;gap:9px;line-height:1.4}
+  .compare-feature{font-family:var(--util);text-transform:uppercase;letter-spacing:.07em;font-size:13px;color:var(--parchment-dim)}
+  .compare-us{background:rgba(160,114,42,.08);color:var(--parchment)}
+  .compare-us svg{width:16px;height:16px;stroke:var(--gold);fill:none;stroke-width:2.4;flex:none}
+  .compare-them{color:var(--parchment-dim)}
+
+  /* ===== REVIEWS ===== */
+  .reviews{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  .review{border:1px solid var(--line);border-radius:5px;padding:32px 28px;background:linear-gradient(160deg,var(--walnut-2),var(--ink));display:flex;flex-direction:column}
+  .review .stars{color:var(--gold);font-size:17px;letter-spacing:3px;margin-bottom:16px}
+  .review blockquote{font-size:18px;color:var(--parchment);line-height:1.55;font-style:italic;margin-bottom:22px;flex:1}
+  .review figcaption{font-family:var(--util);text-transform:uppercase;letter-spacing:.14em;font-size:13px;color:var(--brass-bright)}
+
+  @media(max-width:860px){ .reviews{grid-template-columns:1fr;max-width:520px;margin:0 auto} }
+  @media(max-width:620px){
+    .compare-head>div,.compare-row>div{padding:12px 10px;font-size:13px;gap:6px}
+    .compare-feature{font-size:11px}
+    .compare-us svg{width:14px;height:14px}
+  }
+
   @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}.reveal{opacity:1;transform:none}}
   :focus-visible{outline:2px solid var(--brass);outline-offset:3px}
