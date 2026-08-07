@@ -1,0 +1,53 @@
+/* ===== L'Artisan — store pages (catalog + bundle) =====
+   Shared component styles for the multi-page store. Relies on the design
+   tokens (:root vars), base elements, header/footer/nav, and .club styles
+   defined in styles.css. */
+
+/* Inner-page header (clears the fixed site header) */
+.page-head{padding:150px 0 8px;text-align:center;background:radial-gradient(120% 90% at 50% 0%, rgba(107,78,42,.18), transparent 60%)}
+.page-head .eyebrow{display:block;margin-bottom:18px}
+.page-head h1{font-size:clamp(34px,5vw,58px);color:var(--brass-bright);margin-bottom:18px;letter-spacing:.02em}
+.page-head p{max-width:620px;margin:0 auto;font-size:20px;color:var(--parchment)}
+
+/* ===== Our Catalog — flavour grid ===== */
+.cat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.cat-card{border:1px solid var(--line);border-radius:4px;padding:34px 30px;background:linear-gradient(160deg,var(--walnut-2),var(--ink));display:flex;flex-direction:column;transition:border-color .35s,transform .35s}
+.cat-card:hover{border-color:var(--gold);transform:translateY(-4px)}
+.cat-tin{width:104px;height:104px;border-radius:50%;overflow:hidden;border:1px solid var(--line);background:#000;margin-bottom:22px}
+.cat-tin img{width:100%;height:100%;object-fit:cover}
+.cat-card h3{font-size:27px;margin-bottom:4px}
+.cat-card .pair{font-family:var(--util);text-transform:uppercase;letter-spacing:.2em;font-size:12px;color:var(--gold);margin-bottom:16px}
+.cat-card .note{font-size:17px;color:var(--parchment);line-height:1.55;margin-bottom:18px;flex:1}
+.cat-card .best{font-family:var(--util);text-transform:uppercase;letter-spacing:.14em;font-size:13px;color:var(--parchment-dim)}
+.cat-card .best b{color:var(--brass-bright);font-weight:600}
+.cat-cta{text-align:center;margin-top:54px}
+
+/* ===== Bundle page ===== */
+.bundle-wrap{max-width:920px;margin:0 auto}
+.bundle-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.bundle-card{position:relative;border:1px solid var(--line);border-radius:5px;padding:36px 26px 30px;background:linear-gradient(160deg,var(--walnut-2),var(--ink));cursor:pointer;transition:border-color .3s,transform .3s,box-shadow .3s;text-align:center}
+.bundle-card:hover{transform:translateY(-3px)}
+.bundle-card.selected{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold),0 24px 60px rgba(0,0,0,.5)}
+.bundle-radio{width:22px;height:22px;border:1px solid var(--gold);border-radius:50%;margin:0 auto 18px;position:relative;transition:.3s}
+.bundle-card.selected .bundle-radio{background:var(--gold)}
+.bundle-card.selected .bundle-radio::after{content:'';position:absolute;inset:6px;border-radius:50%;background:var(--ink)}
+.bundle-card h3{font-size:26px;color:var(--brass-bright);margin-bottom:4px}
+.bundle-sub{display:block;font-family:var(--util);text-transform:uppercase;letter-spacing:.16em;font-size:12px;color:var(--parchment-dim);margin-bottom:18px}
+.bundle-price{font-family:var(--display);font-size:34px;color:var(--brass-bright);line-height:1}
+.bundle-was{display:block;margin-top:6px;font-size:16px;color:var(--parchment-dim);text-decoration:line-through}
+.bundle-save{display:inline-block;margin-top:12px;font-family:var(--util);text-transform:uppercase;letter-spacing:.14em;font-size:12px;color:var(--ink);background:var(--brass);border-radius:2px;padding:4px 10px}
+.bundle-badge{position:absolute;top:-11px;left:50%;transform:translateX(-50%);white-space:nowrap;font-family:var(--util);text-transform:uppercase;letter-spacing:.16em;font-size:11px;color:var(--ink);background:var(--gold);padding:5px 14px;border-radius:2px}
+.bundle-note{font-size:15px;color:var(--parchment-dim);margin-top:16px}
+.bundle-cta{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-top:44px}
+.bundle-cta .btn{min-width:220px;justify-content:center}
+.bundle-fine{text-align:center;color:var(--parchment-dim);font-size:15px;margin-top:22px;max-width:520px;margin-left:auto;margin-right:auto}
+
+@media(max-width:820px){
+  .cat-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:620px){
+  .page-head{padding-top:128px}
+  .cat-grid{grid-template-columns:1fr}
+  .bundle-grid{grid-template-columns:1fr;max-width:360px;margin:0 auto}
+  .bundle-cta .btn{width:100%}
+}
