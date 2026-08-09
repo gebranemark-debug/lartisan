@@ -33,7 +33,10 @@
   var burger = document.getElementById("burger");
   var closeBtn = document.getElementById("closeMenu");
   var closeMenu = function () { if (mm) mm.classList.remove("open"); if (burger) burger.setAttribute("aria-expanded", "false"); };
-  if (burger) burger.onclick = function () { if (mm) mm.classList.add("open"); burger.setAttribute("aria-expanded", "true"); };
+  if (burger) burger.onclick = function () {              // toggle: tap opens, tap again closes
+    var isOpen = mm && mm.classList.toggle("open");
+    burger.setAttribute("aria-expanded", isOpen ? "true" : "false");
+  };
   if (closeBtn) closeBtn.onclick = closeMenu;
 
   // ---- header scroll state ----

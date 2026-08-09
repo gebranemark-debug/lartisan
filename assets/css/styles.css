@@ -286,11 +286,21 @@
   .review blockquote{font-size:18px;color:var(--parchment);line-height:1.55;font-style:italic;margin-bottom:22px;flex:1}
   .review figcaption{font-family:var(--util);text-transform:uppercase;letter-spacing:.14em;font-size:13px;color:var(--brass-bright)}
 
-  @media(max-width:860px){ .reviews{grid-template-columns:1fr;max-width:520px;margin:0 auto} }
+  /* Reviews: horizontal swipe carousel on mobile (saves vertical space) */
+  @media(max-width:860px){
+    .reviews{display:flex;grid-template-columns:none;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;gap:14px;max-width:none;margin:0;padding-bottom:4px}
+    .reviews::-webkit-scrollbar{display:none}
+    .review{flex:0 0 86%;scroll-snap-align:start}
+  }
   @media(max-width:620px){
     .compare-head>div,.compare-row>div{padding:12px 10px;font-size:13px;gap:6px}
     .compare-feature{font-size:11px}
     .compare-us svg{width:14px;height:14px}
+    /* Craftsman story: stacked, but with a small image so it doesn't dominate */
+    .craft-inner{gap:20px}
+    .craft-photo{max-width:180px;margin:0;padding:6px}
+    .craft-copy h2{font-size:25px;margin-bottom:14px;line-height:1.2}
+    .craft-copy p{font-size:16px;line-height:1.6}
   }
 
   @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}.reveal{opacity:1;transform:none}}
