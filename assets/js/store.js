@@ -9,12 +9,12 @@
   var PHONE = "96181363232";
   var FIELDS = "%0A%0AName:%0AAddress / Area:%0APhone:";
   var waURL = function (msg) { return "https://wa.me/" + PHONE + "?text=" + msg; };
-  var ORDER_MSG = "Hi L'Artisan Alcoolique! I'd like to order the Signature Smoker Kit ($85, cash on delivery)." + FIELDS + "%0AQuantity: 1";
+  var ORDER_MSG = "Hi L'Artisan Alcoolique! I'd like to order the Signature Smoker Kit ($55, cash on delivery)." + FIELDS + "%0AQuantity: 1";
   var CLUB_MSG  = "Hi L'Artisan Alcoolique! I'd like to join the Oak Club (monthly wood flavours, cash on delivery)." + FIELDS;
   var BUNDLE_MSG = {
-    1: "Hi L'Artisan Alcoolique! I'd like the Buy 1 bundle — 1 Signature Smoker Kit ($85, cash on delivery)." + FIELDS,
-    2: "Hi L'Artisan Alcoolique! I'd like the Buy 2 bundle — 2 Signature Smoker Kits ($160, cash on delivery)." + FIELDS,
-    3: "Hi L'Artisan Alcoolique! I'd like the Buy 3 bundle — 3 Signature Smoker Kits ($225, cash on delivery)." + FIELDS
+    1: "Hi L'Artisan Alcoolique! I'd like the Buy 1 bundle — 1 Signature Smoker Kit ($55, cash on delivery)." + FIELDS,
+    2: "Hi L'Artisan Alcoolique! I'd like the Buy 2 bundle — 2 Signature Smoker Kits ($100, cash on delivery)." + FIELDS,
+    3: "Hi L'Artisan Alcoolique! I'd like the Buy 3 bundle — 3 Signature Smoker Kits ($145, cash on delivery)." + FIELDS
   };
 
   function setWa(el, msg) {

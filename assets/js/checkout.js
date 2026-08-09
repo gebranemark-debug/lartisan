@@ -20,9 +20,9 @@
 
   // Bundles (mirror bundle.html). Keyed by the ?bundle= value.
   var BUNDLES = {
-    "1": { label: "Buy 1 — 1 Signature Smoker Kit",  total: "$85" },
-    "2": { label: "Buy 2 — 2 Signature Smoker Kits", total: "$160" },
-    "3": { label: "Buy 3 — 3 Signature Smoker Kits", total: "$225" }
+    "1": { label: "Buy 1 — 1 Signature Smoker Kit",  total: "$55" },
+    "2": { label: "Buy 2 — 2 Signature Smoker Kits", total: "$100" },
+    "3": { label: "Buy 3 — 3 Signature Smoker Kits", total: "$145" }
   };
 
   function qp(name) { return new URLSearchParams(location.search).get(name); }
