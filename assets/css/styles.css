@@ -247,12 +247,15 @@
   .carousel-dots button.active{background:var(--gold);width:22px;border-radius:4px}
   .product-info .eyebrow{display:block;margin-bottom:16px}
   .product-info h2{font-size:clamp(30px,4vw,46px);margin-bottom:16px}
-  .product-price{font-family:var(--display);font-size:32px;color:var(--brass-bright);margin-bottom:18px}
-  .product-price small{font-family:var(--body);font-size:17px;color:var(--parchment-dim)}
+  .product-price{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:6px}
+  .product-price .pp-now{font-family:var(--display);font-size:40px;line-height:1;color:var(--brass-bright)}
+  .product-price .pp-was{font-size:22px;color:var(--parchment-dim);text-decoration:line-through}
+  .product-price .pp-save{font-family:var(--util);text-transform:uppercase;letter-spacing:.12em;font-size:12px;font-weight:600;color:var(--ink);background:var(--gold);padding:5px 11px;border-radius:2px}
+  .product-cod{font-family:var(--util);text-transform:uppercase;letter-spacing:.14em;font-size:12px;color:var(--parchment-dim);margin-bottom:22px}
   .product-desc{font-size:19px;color:var(--parchment);margin-bottom:24px;line-height:1.6}
   .product-points{list-style:none;margin:0 0 30px;display:grid;gap:11px}
   .product-points li{display:flex;gap:12px;align-items:center;font-size:17px;color:var(--parchment)}
-  .product-points li svg{width:18px;height:18px;stroke:var(--gold);fill:none;stroke-width:2;flex:none}
+  .product-points .pp-ico{font-size:19px;line-height:1;flex:none;width:24px;text-align:center}
   .product-actions{display:flex;gap:14px;flex-wrap:wrap}
 
   /* ===== HOW TO (compact ceremony) ===== */
