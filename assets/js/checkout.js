@@ -13,7 +13,7 @@
     SHEET_URL: "https://script.google.com/macros/s/AKfycbyJ1Ybnf2ul-Vm9Ywhioa1Gs6Uf8NfXffqi59SO1TJsEINfbCzi3EiU0PL5k2u2J86d/exec",
     SHEET_SECRET: "lartisan2026xyz",          // must match the secret in your Apps Script
     EMAILJS_PUBLIC_KEY: "vUwNauDCuMfhcl5a8",
-    EMAILJS_SERVICE_ID: "service_hwjznyb",
+    EMAILJS_SERVICE_ID: "service_zoho",
     EMAILJS_TEMPLATE_ID: "template_8chohmu",
     OWNER_WHATSAPP: "96181363232"
   };
