@@ -69,6 +69,36 @@
     apply();
   }
 
+  // ---- flavour guide (catalog page): tabs -> single panel ----
+  var flavPanel = document.getElementById("flavPanel");
+  if (flavPanel) {
+    var FLAV = {
+      oak:    { name: "Oak",    img: "assets/img/flavour-oak.jpg",    pair: "Pure oak · rich & smooth", note: "Deep, warm and classic — the backbone of barrel aging. Rounds out the spirit with a slow, woody sweetness.", best: "Old Fashioned · Neat bourbon · Rye" },
+      cherry: { name: "Cherry", img: "assets/img/flavour-cherry.jpg", pair: "Sweet & mild",             note: "Fruity and fragrant with a soft finish. Lifts stirred and fruit-forward drinks without overpowering them.", best: "Manhattan · Dark rum · Amaro" },
+      pecan:  { name: "Pecan",  img: "assets/img/flavour-pecan.jpg",  pair: "Nutty & rich",             note: "Toasty, full and a little sweet. A rich, rounded smoke that flatters darker, aged spirits.", best: "Neat whiskey · Aged rum · Old Fashioned" },
+      apple:  { name: "Apple",  img: "assets/img/flavour-apple.jpg",  pair: "Fruity & light",           note: "Mild, mellow and gently sweet. The easy option when you want aroma without weight.", best: "Tequila · Gin · White rum" },
+      peach:  { name: "Peach",  img: "assets/img/flavour-peach.jpg",  pair: "Sweet & smooth",           note: "Soft stone-fruit sweetness with a smooth, warm finish. Made for sippable, sweeter cocktails.", best: "Bourbon sour · Whiskey · Peach cocktails" },
+      pear:   { name: "Pear",   img: "assets/img/flavour-pear.jpg",   pair: "Mild & refreshing",        note: "Light, clean and delicate. A refreshing smoke that keeps bright drinks bright.", best: "Vodka · Gin · Light cocktails" }
+    };
+    var renderFlav = function (key) {
+      var f = FLAV[key]; if (!f) return;
+      flavPanel.innerHTML =
+        '<div class="tin"><img src="' + f.img + '" alt="' + f.name + ' wood chips tin"><div><h3>' + f.name + '</h3>' +
+        '<div class="pair">' + f.pair + '</div></div></div>' +
+        '<p class="note">' + f.note + '</p>' +
+        '<div class="best">Best with · <b>' + f.best + '</b></div>';
+    };
+    var flavTabs = document.querySelectorAll(".flav-tab");
+    flavTabs.forEach(function (t) {
+      t.addEventListener("click", function () {
+        flavTabs.forEach(function (x) { x.classList.remove("active"); x.setAttribute("aria-selected", "false"); });
+        t.classList.add("active"); t.setAttribute("aria-selected", "true");
+        renderFlav(t.dataset.f);
+      });
+    });
+    renderFlav("oak");   // default
+  }
+
   // ---- reveal on scroll ----
   var io = new IntersectionObserver(function (entries) {
     entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });

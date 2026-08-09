@@ -58,56 +58,17 @@
 
   <section class="band">
     <div class="wrap">
-      <div class="cat-grid">
-
-        <article class="cat-card reveal">
-          <div class="cat-tin"><img src="assets/img/flavour-oak.jpg" alt="Oak wood chips tin" loading="lazy"></div>
-          <h3>Oak</h3>
-          <div class="pair">Pure oak · rich &amp; smooth</div>
-          <p class="note">Deep, warm and classic — the backbone of barrel aging. Rounds out the spirit with a slow, woody sweetness.</p>
-          <div class="best">Best with · <b>Old Fashioned · Neat bourbon · Rye</b></div>
-        </article>
-
-        <article class="cat-card reveal">
-          <div class="cat-tin"><img src="assets/img/flavour-cherry.jpg" alt="Cherry wood chips tin" loading="lazy"></div>
-          <h3>Cherry</h3>
-          <div class="pair">Sweet &amp; mild</div>
-          <p class="note">Fruity and fragrant with a soft finish. Lifts stirred and fruit-forward drinks without overpowering them.</p>
-          <div class="best">Best with · <b>Manhattan · Dark rum · Amaro</b></div>
-        </article>
-
-        <article class="cat-card reveal">
-          <div class="cat-tin"><img src="assets/img/flavour-pecan.jpg" alt="Pecan wood chips tin" loading="lazy"></div>
-          <h3>Pecan</h3>
-          <div class="pair">Nutty &amp; rich</div>
-          <p class="note">Toasty, full and a little sweet. A rich, rounded smoke that flatters darker, aged spirits.</p>
-          <div class="best">Best with · <b>Neat whiskey · Aged rum · Old Fashioned</b></div>
-        </article>
-
-        <article class="cat-card reveal">
-          <div class="cat-tin"><img src="assets/img/flavour-apple.jpg" alt="Apple wood chips tin" loading="lazy"></div>
-          <h3>Apple</h3>
-          <div class="pair">Fruity &amp; light</div>
-          <p class="note">Mild, mellow and gently sweet. The easy option when you want aroma without weight.</p>
-          <div class="best">Best with · <b>Tequila · Gin · White rum</b></div>
-        </article>
-
-        <article class="cat-card reveal">
-          <div class="cat-tin"><img src="assets/img/flavour-peach.jpg" alt="Peach wood chips tin" loading="lazy"></div>
-          <h3>Peach</h3>
-          <div class="pair">Sweet &amp; smooth</div>
-          <p class="note">Soft stone-fruit sweetness with a smooth, warm finish. Made for sippable, sweeter cocktails.</p>
-          <div class="best">Best with · <b>Bourbon sour · Whiskey · Peach cocktails</b></div>
-        </article>
-
-        <article class="cat-card reveal">
-          <div class="cat-tin"><img src="assets/img/flavour-pear.jpg" alt="Pear wood chips tin" loading="lazy"></div>
-          <h3>Pear</h3>
-          <div class="pair">Mild &amp; refreshing</div>
-          <p class="note">Light, clean and delicate. A refreshing smoke that keeps bright drinks bright.</p>
-          <div class="best">Best with · <b>Vodka · Gin · Light cocktails</b></div>
-        </article>
-
+      <!-- Interactive flavour guide: pick a wood -> see its details -->
+      <div class="flav reveal">
+        <div class="flav-tabs" role="tablist" aria-label="Wood flavours">
+          <button class="flav-tab active" data-f="oak" role="tab" aria-selected="true">Oak</button>
+          <button class="flav-tab" data-f="cherry" role="tab" aria-selected="false">Cherry</button>
+          <button class="flav-tab" data-f="pecan" role="tab" aria-selected="false">Pecan</button>
+          <button class="flav-tab" data-f="apple" role="tab" aria-selected="false">Apple</button>
+          <button class="flav-tab" data-f="peach" role="tab" aria-selected="false">Peach</button>
+          <button class="flav-tab" data-f="pear" role="tab" aria-selected="false">Pear</button>
+        </div>
+        <div class="flav-panel" id="flavPanel" role="tabpanel" aria-live="polite"></div>
       </div>
 
       <div class="cat-cta">
