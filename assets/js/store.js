@@ -43,6 +43,7 @@
   // ---- bundle selection (bundle page only) ----
   var cards = document.querySelectorAll(".bundle-card");
   var bundleBtns = document.querySelectorAll('[data-wa="bundle"]');
+  var buynowBtns = document.querySelectorAll('[data-buynow]');
   if (cards.length) {
     var sel = 2; // default: Buy 2 (most popular)
     var apply = function () {
@@ -52,6 +53,8 @@
         c.setAttribute("aria-checked", on ? "true" : "false");
       });
       bundleBtns.forEach(function (b) { setWa(b, BUNDLE_MSG[sel]); });
+      // "Buy it now" -> checkout page, carrying the selected bundle
+      buynowBtns.forEach(function (b) { b.href = "checkout.html?bundle=" + sel; });
     };
     var pick = function (c) { sel = +c.dataset.qty; apply(); };
     cards.forEach(function (c) {

@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bundle &amp; Save — L'Artisan Alcoolique</title>
-<meta name="description" content="Order one, two or three L'Artisan Signature Smoker Kits and save. Cash on delivery across Lebanon, confirmed on WhatsApp.">
+<title>Order confirmed — L'Artisan Alcoolique</title>
+<meta name="robots" content="noindex">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Barlow+Condensed:wght@400;500;600&display=swap" rel="stylesheet">
@@ -50,53 +50,15 @@
 </div>
 
 <main>
-  <section class="page-head">
-    <span class="eyebrow">Bundle &amp; Save</span>
-    <h1>Choose your bundle</h1>
-    <p>The more you gift, the more you save. Pick a bundle and order on WhatsApp — cash on delivery, across Lebanon.</p>
-  </section>
-
-  <section class="band">
-    <div class="wrap bundle-wrap">
-      <div class="bundle-grid" role="radiogroup" aria-label="Choose a bundle">
-
-        <article class="bundle-card" data-qty="1" role="radio" aria-checked="false" tabindex="0">
-          <div class="bundle-radio" aria-hidden="true"></div>
-          <h3>Buy 1</h3>
-          <span class="bundle-sub">1 Signature Kit</span>
-          <div class="bundle-price">$85</div>
-          <div class="bundle-note">One kit, one ritual.</div>
-        </article>
-
-        <article class="bundle-card" data-qty="2" role="radio" aria-checked="false" tabindex="0">
-          <div class="bundle-badge">Most popular</div>
-          <div class="bundle-radio" aria-hidden="true"></div>
-          <h3>Buy 2</h3>
-          <span class="bundle-sub">2 Signature Kits</span>
-          <div class="bundle-price">$160</div>
-          <span class="bundle-was">$170</span>
-          <span class="bundle-save">Save $10</span>
-          <div class="bundle-note">One to keep, one to gift.</div>
-        </article>
-
-        <article class="bundle-card" data-qty="3" role="radio" aria-checked="false" tabindex="0">
-          <div class="bundle-badge">Best value</div>
-          <div class="bundle-radio" aria-hidden="true"></div>
-          <h3>Buy 3</h3>
-          <span class="bundle-sub">3 Signature Kits</span>
-          <div class="bundle-price">$225</div>
-          <span class="bundle-was">$255</span>
-          <span class="bundle-save">Save $30</span>
-          <div class="bundle-note">The set for the whole table.</div>
-        </article>
-
-      </div>
-
-      <div class="bundle-cta">
-        <a class="btn btn-gold" data-wa="bundle" href="https://wa.me/96181363232"><svg class="wa-ico" viewBox="0 0 24 24"><path d="M12 2a10 10 0 00-8.5 15.3L2 22l4.8-1.5A10 10 0 1012 2zm0 18a8 8 0 01-4.1-1.1l-.3-.2-2.8.9.9-2.7-.2-.3A8 8 0 1112 20zm4.5-5.9c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.5.1-.6.8-.8 1-.3.2-.5.1a6.5 6.5 0 01-1.9-1.2 7.3 7.3 0 01-1.4-1.7c-.1-.2 0-.4.1-.5l.4-.4.2-.4v-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5a.9.9 0 00-.7.3 2.8 2.8 0 00-.9 2.1 4.9 4.9 0 001 2.6 11 11 0 004.3 3.8c1.6.7 1.9.6 2.3.5a2.5 2.5 0 001.6-1.1 2 2 0 00.2-1.1c-.1-.2-.3-.2-.5-.3z"/></svg>Order on WhatsApp</a>
-        <a class="btn btn-ghost" data-buynow href="checkout.html?bundle=2">Buy it now</a>
-      </div>
-      <p class="bundle-fine">No account, no card, no checkout. You confirm your bundle on WhatsApp and pay cash on delivery.</p>
+  <section class="page-head thankyou">
+    <div class="ty-mark"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></div>
+    <span class="eyebrow">Order confirmed</span>
+    <h1>Thank you — your order's in.</h1>
+    <p>We've received your order<span id="tyBundle"></span>. We'll confirm the delivery timing with you on WhatsApp shortly, and you pay cash when it arrives.</p>
+    <p class="ty-note">A confirmation email is on its way. If WhatsApp didn't open with your order, tap below.</p>
+    <div class="ty-actions">
+      <a class="btn btn-gold" id="tyWa" href="https://wa.me/96181363232" target="_blank" rel="noopener noreferrer"><svg class="wa-ico" viewBox="0 0 24 24"><path d="M12 2a10 10 0 00-8.5 15.3L2 22l4.8-1.5A10 10 0 1012 2zm0 18a8 8 0 01-4.1-1.1l-.3-.2-2.8.9.9-2.7-.2-.3A8 8 0 1112 20zm4.5-5.9c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.5.1-.6.8-.8 1-.3.2-.5.1a6.5 6.5 0 01-1.9-1.2 7.3 7.3 0 01-1.4-1.7c-.1-.2 0-.4.1-.5l.4-.4.2-.4v-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5a.9.9 0 00-.7.3 2.8 2.8 0 00-.9 2.1 4.9 4.9 0 001 2.6 11 11 0 004.3 3.8c1.6.7 1.9.6 2.3.5a2.5 2.5 0 001.6-1.1 2 2 0 00.2-1.1c-.1-.2-.3-.2-.5-.3z"/></svg>Send my order on WhatsApp</a>
+      <a class="btn btn-ghost" href="index.html">Back to home</a>
     </div>
   </section>
 </main>
@@ -119,5 +81,18 @@
 </footer>
 
 <script src="assets/js/store.js"></script>
+<script>
+  // Fill the WhatsApp fallback button with the exact order (saved at submit),
+  // and show which bundle was ordered.
+  (function () {
+    try {
+      var wa = sessionStorage.getItem("laOrderWa");
+      if (wa) document.getElementById("tyWa").href = wa;
+    } catch (e) {}
+    var BUNDLES = { "1": "Buy 1", "2": "Buy 2", "3": "Buy 3" };
+    var k = new URLSearchParams(location.search).get("bundle");
+    if (BUNDLES[k]) document.getElementById("tyBundle").textContent = " (" + BUNDLES[k] + ")";
+  })();
+</script>
 </body>
 </html>
