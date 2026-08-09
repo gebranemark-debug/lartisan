@@ -48,8 +48,28 @@
 @media(max-width:620px){
   .page-head{padding-top:128px}
   .cat-grid{grid-template-columns:1fr}
-  .bundle-grid{grid-template-columns:1fr;max-width:360px;margin:0 auto}
   .bundle-cta .btn{width:100%}
+
+  /* Compact bundle cards: a tight row (radio · name/desc · price/save) so all
+     three fit on a phone screen without a long scroll. Same content + tags +
+     selection highlight, smaller footprint. */
+  .bundle-grid{grid-template-columns:1fr;max-width:430px;margin:0 auto;gap:16px}
+  .bundle-card{
+    display:grid;
+    grid-template-columns:auto 1fr auto;
+    grid-template-areas:"radio name price" "radio sub was" "radio note save";
+    align-items:center;column-gap:14px;row-gap:1px;text-align:left;padding:14px 16px;
+  }
+  .bundle-card:hover{transform:none}
+  .bundle-radio{grid-area:radio;margin:0;width:20px;height:20px}
+  .bundle-card.selected .bundle-radio::after{inset:5px}
+  .bundle-card h3{grid-area:name;font-size:20px;margin:0;line-height:1.15}
+  .bundle-sub{grid-area:sub;margin:0;font-size:11px;letter-spacing:.12em}
+  .bundle-price{grid-area:price;font-size:25px;line-height:1;text-align:right}
+  .bundle-was{grid-area:was;margin:0;font-size:14px;text-align:right}
+  .bundle-save{grid-area:save;margin:0;justify-self:end;font-size:10px;padding:3px 8px}
+  .bundle-note{grid-area:note;margin:3px 0 0;font-size:12px;line-height:1.25}
+  .bundle-badge{top:-9px;font-size:10px;padding:4px 9px;letter-spacing:.12em}
 }
 
 /* ===== Checkout / order form ===== */
