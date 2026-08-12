@@ -1,7 +1,7 @@
 /* ===== L'Artisan — home page =====
-   Home-specific behaviour only. Shared logic (WhatsApp order links, mobile
-   menu, header scroll state, reveal-on-scroll, same-page smooth-scroll)
-   lives in store.js, which the home page also loads. */
+   Home-specific behaviour only. Shared logic (mobile menu, header scroll
+   state, reveal-on-scroll, same-page smooth-scroll) lives in store.js,
+   which the home page also loads. */
 
 // ===== experience video: loads only on tap (preload=none); poster until then =====
 (function () {

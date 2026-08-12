@@ -1,32 +1,9 @@
 /* ===== L'Artisan — store pages (catalog + bundle) =====
-   Null-safe, page-agnostic. Wires WhatsApp order links, the mobile menu,
-   header scroll state, bundle selection, and reveal animations. Does not
-   touch the home page (index.html uses main.js). */
+   Null-safe, page-agnostic. Wires the mobile menu, header scroll state,
+   bundle selection, the flavour guide, and reveal animations. Ordering and
+   Oak Club sign-up run through their own forms (checkout.js / club.js). */
 (function () {
   "use strict";
-
-  // ---- WhatsApp config (mirrors main.js) ----
-  var PHONE = "96181363232";
-  var FIELDS = "%0A%0AName:%0AAddress / Area:%0APhone:";
-  var waURL = function (msg) { return "https://wa.me/" + PHONE + "?text=" + msg; };
-  var ORDER_MSG = "Hi L'Artisan Alcoolique! I'd like to order the Signature Smoker Kit ($55, cash on delivery)." + FIELDS + "%0AQuantity: 1";
-  var CLUB_MSG  = "Hi L'Artisan Alcoolique! I'd like to join the Oak Club (monthly wood flavours, cash on delivery)." + FIELDS;
-  var BUNDLE_MSG = {
-    1: "Hi L'Artisan Alcoolique! I'd like the Buy 1 bundle — 1 Signature Smoker Kit ($55, cash on delivery)." + FIELDS,
-    2: "Hi L'Artisan Alcoolique! I'd like the Buy 2 bundle — 2 Signature Smoker Kits ($100, cash on delivery)." + FIELDS,
-    3: "Hi L'Artisan Alcoolique! I'd like the Buy 3 bundle — 3 Signature Smoker Kits ($145, cash on delivery)." + FIELDS
-  };
-
-  function setWa(el, msg) {
-    if (!el) return;
-    el.href = waURL(msg);
-    el.target = "_blank";
-    el.rel = "noopener noreferrer";
-  }
-
-  // Direct-WhatsApp links (open in a new tab, pre-filled) — never scroll
-  document.querySelectorAll('[data-wa="order"]').forEach(function (a) { setWa(a, ORDER_MSG); });
-  document.querySelectorAll('[data-wa="club"]').forEach(function (a) { setWa(a, CLUB_MSG); });
 
   // ---- mobile menu ----
   var mm = document.getElementById("mobileMenu");
@@ -45,7 +22,6 @@
 
   // ---- bundle selection (bundle page only) ----
   var cards = document.querySelectorAll(".bundle-card");
-  var bundleBtns = document.querySelectorAll('[data-wa="bundle"]');
   var buynowBtns = document.querySelectorAll('[data-buynow]');
   if (cards.length) {
     var sel = 2; // default: Buy 2 (most popular)
@@ -55,7 +31,6 @@
         c.classList.toggle("selected", on);
         c.setAttribute("aria-checked", on ? "true" : "false");
       });
-      bundleBtns.forEach(function (b) { setWa(b, BUNDLE_MSG[sel]); });
       // "Buy it now" -> checkout page, carrying the selected bundle
       buynowBtns.forEach(function (b) { b.href = "checkout.html?bundle=" + sel; });
     };

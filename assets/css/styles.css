@@ -305,3 +305,13 @@
 
   @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}.reveal{opacity:1;transform:none}}
   :focus-visible{outline:2px solid var(--brass);outline-offset:3px}
+
+  /* ===== Floating WhatsApp contact button (contact only — every page) ===== */
+  .wa-float{position:fixed;right:20px;bottom:20px;z-index:90;width:56px;height:56px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 22px rgba(0,0,0,.4);transition:transform .25s ease,box-shadow .25s ease}
+  .wa-float:hover{transform:translateY(-3px) scale(1.05);box-shadow:0 12px 28px rgba(0,0,0,.5)}
+  .wa-float:focus-visible{outline:2px solid #fff;outline-offset:3px}
+  .wa-float svg{width:30px;height:30px;fill:#fff}
+  @media(max-width:620px){.wa-float{right:16px;bottom:16px;width:52px;height:52px}.wa-float svg{width:28px;height:28px}}
+
+  /* Lock background scroll while the Oak Club sign-up modal is open */
+  body.modal-open{overflow:hidden}
