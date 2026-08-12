@@ -36,7 +36,7 @@
       <a href="catalog.html">Our Catalog</a>
       <a href="our-story.html">Our Story</a>
     </nav>
-    <a class="btn btn-gold nav-cta" data-wa="order" href="https://wa.me/96181363232"><svg class="wa-ico" viewBox="0 0 24 24"><path d="M12 2a10 10 0 00-8.5 15.3L2 22l4.8-1.5A10 10 0 1012 2zm0 18a8 8 0 01-4.1-1.1l-.3-.2-2.8.9.9-2.7-.2-.3A8 8 0 1112 20zm4.5-5.9c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.5.1-.6.8-.8 1-.3.2-.5.1a6.5 6.5 0 01-1.9-1.2 7.3 7.3 0 01-1.4-1.7c-.1-.2 0-.4.1-.5l.4-.4.2-.4v-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5a.9.9 0 00-.7.3 2.8 2.8 0 00-.9 2.1 4.9 4.9 0 001 2.6 11 11 0 004.3 3.8c1.6.7 1.9.6 2.3.5a2.5 2.5 0 001.6-1.1 2 2 0 00.2-1.1c-.1-.2-.3-.2-.5-.3z"/></svg>Order</a>
+    <a class="btn btn-gold nav-cta" href="bundle.html">Order</a>
     <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
   </div>
 </header>
@@ -46,19 +46,18 @@
   <a href="index.html#product">The Kit</a>
   <a href="catalog.html">Our Catalog</a>
   <a href="our-story.html">Our Story</a>
-  <a class="btn btn-gold" data-wa="order" href="https://wa.me/96181363232">Order on WhatsApp</a>
+  <a class="btn btn-gold" href="bundle.html">Order</a>
 </div>
 
 <main>
   <section class="page-head thankyou">
     <div class="ty-mark"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></div>
-    <span class="eyebrow">Order confirmed</span>
-    <h1>Thank you — your order's in.</h1>
-    <p>We've received your order<span id="tyBundle"></span>. We'll confirm the delivery timing with you on WhatsApp shortly, and you pay cash when it arrives.</p>
-    <p class="ty-note">A confirmation email is on its way. If WhatsApp didn't open with your order, tap below.</p>
+    <span class="eyebrow" id="tyEyebrow">Order confirmed</span>
+    <h1 id="tyTitle">Thank you — your order's in.</h1>
+    <p id="tyBody">We've received your order<span id="tyBundle"></span>. We'll confirm the delivery timing with you shortly, and you pay cash when it arrives.</p>
+    <p class="ty-note">A confirmation email is on its way.</p>
     <div class="ty-actions">
-      <a class="btn btn-gold" id="tyWa" href="https://wa.me/96181363232" target="_blank" rel="noopener noreferrer"><svg class="wa-ico" viewBox="0 0 24 24"><path d="M12 2a10 10 0 00-8.5 15.3L2 22l4.8-1.5A10 10 0 1012 2zm0 18a8 8 0 01-4.1-1.1l-.3-.2-2.8.9.9-2.7-.2-.3A8 8 0 1112 20zm4.5-5.9c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.5.1-.6.8-.8 1-.3.2-.5.1a6.5 6.5 0 01-1.9-1.2 7.3 7.3 0 01-1.4-1.7c-.1-.2 0-.4.1-.5l.4-.4.2-.4v-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5a.9.9 0 00-.7.3 2.8 2.8 0 00-.9 2.1 4.9 4.9 0 001 2.6 11 11 0 004.3 3.8c1.6.7 1.9.6 2.3.5a2.5 2.5 0 001.6-1.1 2 2 0 00.2-1.1c-.1-.2-.3-.2-.5-.3z"/></svg>Send my order on WhatsApp</a>
-      <a class="btn btn-ghost" href="index.html">Back to home</a>
+      <a class="btn btn-gold" href="index.html">Back to home</a>
     </div>
   </section>
 </main>
@@ -73,24 +72,33 @@
         <p>The art of smoke, made in the spirit of the craftsman.</p>
       </div>
       <div class="foot-col"><h5>Explore</h5><a href="index.html#product">The Kit</a><a href="catalog.html">Our Catalog</a><a href="catalog.html#club">Oak Club</a><a href="our-story.html">Our Story</a><a href="index.html#faq">Questions</a></div>
-      <div class="foot-col"><h5>Order</h5><a data-wa="order" href="https://wa.me/96181363232">Order on WhatsApp</a><p>Cash on delivery</p><p>Delivered across Lebanon</p></div>
-      <div class="foot-col"><h5>Find us</h5><a href="#" id="igLink">Instagram (soon)</a><a data-wa="order" href="https://wa.me/96181363232">WhatsApp</a><p>Beirut, Lebanon</p></div>
+      <div class="foot-col"><h5>Order</h5><a href="bundle.html">Order the kit</a><p>Cash on delivery</p><p>Delivered across Lebanon</p></div>
+      <div class="foot-col"><h5>Find us</h5><a href="#" id="igLink">Instagram (soon)</a><p>Beirut, Lebanon</p></div>
     </div>
     <div class="foot-bottom"><span>© 2026 L'Artisan Alcoolique</span><span>Beirut · The Art of Smoke</span></div>
   </div>
 </footer>
 
+<!-- Floating WhatsApp contact button (contact only — not part of ordering) -->
+<a class="wa-float" href="https://wa.me/96181363232?text=Hi%2C%20I%20have%20a%20question%20about%20L%27Artisan%20Alcoolique" target="_blank" rel="noopener noreferrer" aria-label="Contact us on WhatsApp">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 00-8.5 15.3L2 22l4.8-1.5A10 10 0 1012 2zm0 18a8 8 0 01-4.1-1.1l-.3-.2-2.8.9.9-2.7-.2-.3A8 8 0 1112 20zm4.5-5.9c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.5.1-.6.8-.8 1-.3.2-.5.1a6.5 6.5 0 01-1.9-1.2 7.3 7.3 0 01-1.4-1.7c-.1-.2 0-.4.1-.5l.4-.4.2-.4v-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5a.9.9 0 00-.7.3 2.8 2.8 0 00-.9 2.1 4.9 4.9 0 001 2.6 11 11 0 004.3 3.8c1.6.7 1.9.6 2.3.5a2.5 2.5 0 001.6-1.1 2 2 0 00.2-1.1c-.1-.2-.3-.2-.5-.3z"/></svg>
+</a>
+
 <script src="assets/js/store.js"></script>
 <script>
-  // Fill the WhatsApp fallback button with the exact order (saved at submit),
-  // and show which bundle was ordered.
+  // Show which bundle was ordered, or switch to the Oak Club confirmation
+  // when arriving from the club sign-up (thankyou.html?club=1).
   (function () {
-    try {
-      var wa = sessionStorage.getItem("laOrderWa");
-      if (wa) document.getElementById("tyWa").href = wa;
-    } catch (e) {}
+    var params = new URLSearchParams(location.search);
+    if (params.get("club")) {
+      var set = function (id, txt) { var el = document.getElementById(id); if (el) el.textContent = txt; };
+      set("tyEyebrow", "Membership confirmed");
+      set("tyTitle", "You're in — welcome to the Oak Club.");
+      set("tyBody", "Thanks for joining the Oak Club. We'll be in touch to confirm your first month's flavour — no card needed, cancel any time.");
+      return;
+    }
     var BUNDLES = { "1": "Buy 1", "2": "Buy 2", "3": "Buy 3" };
-    var k = new URLSearchParams(location.search).get("bundle");
+    var k = params.get("bundle");
     if (BUNDLES[k]) document.getElementById("tyBundle").textContent = " (" + BUNDLES[k] + ")";
   })();
 </script>

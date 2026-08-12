@@ -146,3 +146,19 @@
   .story-copy p{font-size:16px}
   .story-cta .btn{width:100%;max-width:360px}
 }
+
+/* ===== Oak Club sign-up modal (catalog page) ===== */
+.club-modal{position:fixed;inset:0;z-index:200;display:none;align-items:center;justify-content:center;padding:20px}
+.club-modal.open{display:flex}
+.club-backdrop{position:absolute;inset:0;background:rgba(8,6,4,.72);backdrop-filter:blur(3px)}
+.club-dialog{position:relative;z-index:1;width:100%;max-width:440px;max-height:90vh;overflow-y:auto;border:1px solid var(--line);border-radius:8px;background:linear-gradient(160deg,var(--walnut-2),var(--ink));padding:38px 32px 30px;box-shadow:0 30px 80px rgba(0,0,0,.6)}
+.club-dialog .eyebrow{display:block;margin-bottom:12px}
+.club-dialog h3{font-size:28px;color:var(--brass-bright);margin-bottom:12px;line-height:1.15}
+.club-modal-lede{font-size:16px;color:var(--parchment-dim);line-height:1.55;margin-bottom:24px}
+.club-close{position:absolute;top:14px;right:16px;background:none;border:none;color:var(--brass);font-size:30px;line-height:1;cursor:pointer;padding:4px;transition:color .2s}
+.club-close:hover{color:var(--brass-bright)}
+
+@media(max-width:520px){
+  .club-dialog{padding:32px 22px 26px}
+  .club-dialog h3{font-size:24px}
+}

@@ -2,8 +2,7 @@
    Reads the chosen bundle from ?bundle=, validates the form, then on submit:
      1) appends the order to the Google Sheet (Apps Script, via sendBeacon),
      2) emails the customer a confirmation (EmailJS),
-     3) opens WhatsApp to the shop with the full order,
-     4) redirects to the thank-you page.
+     3) redirects to the thank-you page.
    No cart, no card, no server of our own. */
 (function () {
   "use strict";
@@ -14,8 +13,7 @@
     SHEET_SECRET: "lartisan2026xyz",          // must match the secret in your Apps Script
     EMAILJS_PUBLIC_KEY: "vUwNauDCuMfhcl5a8",
     EMAILJS_SERVICE_ID: "service_zoho",
-    EMAILJS_TEMPLATE_ID: "template_8chohmu",
-    OWNER_WHATSAPP: "96181363232"
+    EMAILJS_TEMPLATE_ID: "template_8chohmu"
   };
 
   // Bundles (mirror bundle.html). Keyed by the ?bundle= value.
@@ -59,18 +57,6 @@
 
   function val(id) { var el = document.getElementById(id); return el ? el.value.trim() : ""; }
 
-  function ownerMessage(o) {
-    return "New L'Artisan order\n\n"
-      + "Bundle: " + o.bundle + " (" + o.total + ")\n"
-      + "Name: " + o.firstName + " " + o.lastName + "\n"
-      + "Phone: " + o.phone + "\n"
-      + "City / Region: " + o.city + "\n"
-      + "Address: " + o.address + "\n"
-      + "Email: " + o.email + "\n"
-      + "Notes: " + (o.notes || "—") + "\n"
-      + "Payment: " + o.payment;
-  }
-
   form.addEventListener("submit", function (e) {
     e.preventDefault();
     if (!form.reportValidity()) return;            // native required/email/pattern checks
@@ -88,17 +74,13 @@
     try {
       var payload = JSON.stringify({
         secret: CONFIG.SHEET_SECRET,
+        type: "Kit Order",
         firstName: o.firstName, lastName: o.lastName, phone: o.phone,
         city: o.city, address: o.address, email: o.email,
         bundle: o.bundle + " (" + o.total + ")", notes: o.notes
       });
       navigator.sendBeacon(CONFIG.SHEET_URL, new Blob([payload], { type: "text/plain;charset=UTF-8" }));
     } catch (err) { /* best-effort */ }
-
-    // 3) WhatsApp to the shop — build now, open within this user gesture
-    var waURL = "https://wa.me/" + CONFIG.OWNER_WHATSAPP + "?text=" + encodeURIComponent(ownerMessage(o));
-    try { sessionStorage.setItem("laOrderWa", waURL); } catch (err) {}
-    window.open(waURL, "_blank");
 
     // 2) EmailJS confirmation to the customer — exact template variable names
     var params = {
@@ -112,7 +94,7 @@
           .catch(function (err) { console.warn("EmailJS failed:", err); })
       : Promise.resolve();
 
-    // 4) redirect once the email settles (or after 4s at most)
+    // 3) redirect once the email settles (or after 4s at most)
     var go = function () { location.href = "thankyou.html?bundle=" + encodeURIComponent(bundleKey); };
     Promise.race([emailP, new Promise(function (r) { setTimeout(r, 4000); })]).then(go);
   });
