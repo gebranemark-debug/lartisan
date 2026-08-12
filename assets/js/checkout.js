@@ -47,6 +47,12 @@
     var v = (document.querySelector('input[name="payment"]:checked') || {}).value;
     return v === "whish" ? "Whish Money" : "Cash on Delivery";
   }
+  function paymentMethod() {
+    // Short code stored with the order. COD is the only active method for now
+    // (Whish is shown disabled in checkout.html), so this is "COD" until Whish is live.
+    var v = (document.querySelector('input[name="payment"]:checked') || {}).value;
+    return v === "whish" ? "Whish" : "COD";
+  }
 
   // ---- EmailJS init ----
   if (window.emailjs) { try { emailjs.init({ publicKey: CONFIG.EMAILJS_PUBLIC_KEY }); } catch (e) {} }
@@ -70,6 +76,19 @@
 
     if (btn) { btn.disabled = true; btn.classList.add("is-loading"); btn.textContent = "Placing your order…"; }
 
+    // ---- payment routing ----
+    // COD is the only active method today, so the order is recorded immediately
+    // below. Whish is shown disabled in checkout.html and cannot be selected yet.
+    //
+    // TODO (Whish): once the Whish credentials + API are ready, branch here on the
+    // chosen method (paymentMethod()). For "Whish", instead of the immediate Sheet
+    // write below:
+    //   1) POST the order to a (future) serverless endpoint that initiates the Whish
+    //      payment and returns its status / redirect URL;
+    //   2) only once the payment is confirmed, record the order (Sheet write) and
+    //      send the confirmation email (EmailJS), then redirect to thankyou.html.
+    // No payment logic here yet — this is just the hook.
+
     // 1) Google Sheet — sendBeacon so the write survives the redirect
     try {
       var payload = JSON.stringify({
@@ -77,7 +96,8 @@
         type: "Kit Order",
         firstName: o.firstName, lastName: o.lastName, phone: o.phone,
         city: o.city, address: o.address, email: o.email,
-        bundle: o.bundle + " (" + o.total + ")", notes: o.notes
+        bundle: o.bundle + " (" + o.total + ")", notes: o.notes,
+        paymentMethod: paymentMethod()
       });
       navigator.sendBeacon(CONFIG.SHEET_URL, new Blob([payload], { type: "text/plain;charset=UTF-8" }));
     } catch (err) { /* best-effort */ }
