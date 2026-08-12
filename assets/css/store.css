@@ -101,6 +101,11 @@
 .pay-opt input:focus-visible+.pay-radio{outline:2px solid var(--brass);outline-offset:2px}
 .pay-text b{display:block;font-family:var(--display);font-size:18px;color:var(--brass-bright);font-weight:500}
 .pay-text small{display:block;font-size:14px;color:var(--parchment-dim);margin-top:2px}
+/* Disabled payment option (e.g. Whish — shown but not selectable yet) */
+.pay-opt.is-disabled{opacity:.55;cursor:not-allowed}
+.pay-opt.is-disabled .pay-radio{border-color:var(--parchment-dim)}
+.pay-opt.is-disabled .pay-text b{color:var(--parchment)}
+.pay-soon{display:inline-block;margin-left:8px;vertical-align:middle;font-family:var(--util);text-transform:uppercase;letter-spacing:.12em;font-size:10px;font-weight:500;color:var(--brass);background:rgba(160,114,42,.12);border:1px solid var(--line);border-radius:999px;padding:2px 9px;white-space:nowrap}
 
 .checkout-submit{width:100%;justify-content:center;font-size:16px;padding:17px;margin-top:26px}
 .checkout-submit.is-loading{opacity:.7;cursor:default}

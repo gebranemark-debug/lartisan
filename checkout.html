@@ -125,18 +125,12 @@
               <span class="pay-radio"></span>
               <span class="pay-text"><b>Cash on Delivery</b><small>Pay the courier when your order arrives.</small></span>
             </label>
-            <!--
-              FUTURE PAYMENT OPTION — Whish Money.
-              To enable: (1) uncomment the label below; (2) in assets/js/checkout.js
-              see the "PAYMENT" comment and add handling for value "whish".
-              Nothing else needs to change — styling and selection already work.
-
-            <label class="pay-opt">
-              <input type="radio" name="payment" value="whish">
+            <!-- Whish: shown but disabled until the Whish integration is live (see the Whish TODO in assets/js/checkout.js) -->
+            <label class="pay-opt is-disabled" aria-disabled="true">
+              <input type="radio" name="payment" value="whish" disabled>
               <span class="pay-radio"></span>
-              <span class="pay-text"><b>Whish Money</b><small>Pay via Whish.</small></span>
+              <span class="pay-text"><b>Pay with Whish <span class="pay-soon">Coming soon</span></b><small>Online payment — available shortly.</small></span>
             </label>
-            -->
           </div>
         </div>
 
