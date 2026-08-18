@@ -230,7 +230,12 @@
   .mobile-menu .close{position:absolute;top:26px;right:28px;background:none;border:none;color:var(--brass);font-size:34px;cursor:pointer;line-height:1}
 
   /* ===== PRODUCT (What's inside) ===== */
-  .product-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+  /* Desktop: image left (spanning), heading top-right, details bottom-right.
+     Mobile (≤960px): heading first, then the carousel, then the details. */
+  .product-grid{display:grid;grid-template-columns:1fr 1fr;grid-template-areas:"media head" "media info";column-gap:56px;row-gap:0;align-items:center}
+  .product-head{grid-area:head;align-self:end}
+  .product-media{grid-area:media}
+  .product-info{grid-area:info;align-self:start}
   .carousel{position:relative;border:1px solid var(--line);border-radius:4px;overflow:hidden;background:linear-gradient(160deg,var(--walnut-2),var(--ink))}
   .carousel-track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;-webkit-overflow-scrolling:touch;scrollbar-width:none}
   .carousel-track::-webkit-scrollbar{display:none}
@@ -249,8 +254,8 @@
   .carousel-dots{position:absolute;bottom:14px;left:0;right:0;display:flex;gap:8px;justify-content:center;z-index:2}
   .carousel-dots button{width:8px;height:8px;border-radius:50%;border:none;background:rgba(232,220,196,.45);cursor:pointer;padding:0;transition:all .3s}
   .carousel-dots button.active{background:var(--gold);width:22px;border-radius:4px}
-  .product-info .eyebrow{display:block;margin-bottom:16px}
-  .product-info h2{font-size:clamp(30px,4vw,46px);margin-bottom:16px}
+  .product-head .eyebrow{display:block;margin-bottom:16px}
+  .product-head h2{font-size:clamp(30px,4vw,46px);margin-bottom:16px}
   .product-price{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:6px}
   .product-price .pp-now{font-family:var(--display);font-size:40px;line-height:1;color:var(--brass-bright)}
   .product-price .pp-was{font-size:22px;color:var(--parchment-dim);text-decoration:line-through}
@@ -268,38 +273,39 @@
   .howto-cap{text-align:center;margin-top:20px;font-family:var(--util);text-transform:uppercase;letter-spacing:.14em;font-size:13px;color:var(--parchment-dim)}
 
   @media(max-width:960px){
-    .product-grid{grid-template-columns:1fr;gap:34px}
+    .product-grid{grid-template-columns:1fr;grid-template-areas:"head" "media" "info";column-gap:0;row-gap:26px}
+    .product-head{align-self:auto}
   }
 
-  /* ===== WHY OUR KIT STANDS OUT (comparison) ===== */
-  .compare{border:1px solid var(--line);border-radius:6px;overflow:hidden;max-width:900px;margin:0 auto}
-  .compare-head,.compare-row{display:grid;grid-template-columns:1.25fr 1fr 1fr}
-  .compare-head{background:linear-gradient(160deg,var(--walnut-2),var(--ink))}
-  .compare-head>div{padding:16px 18px;font-family:var(--util);text-transform:uppercase;letter-spacing:.14em;font-size:13px;color:var(--parchment-dim)}
-  .compare-head .compare-us{color:var(--brass-bright)}
-  .compare-row>div{padding:15px 18px;border-top:1px solid var(--line-soft);font-size:16px;display:flex;align-items:center;gap:9px;line-height:1.4}
-  .compare-feature{font-family:var(--util);text-transform:uppercase;letter-spacing:.07em;font-size:13px;color:var(--parchment-dim)}
-  .compare-us{background:rgba(160,114,42,.08);color:var(--parchment)}
-  .compare-us svg{width:16px;height:16px;stroke:var(--gold);fill:none;stroke-width:2.4;flex:none}
-  .compare-them{color:var(--parchment-dim)}
-
-  /* ===== REVIEWS ===== */
-  .reviews{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  /* ===== REVIEWS (swipeable carousel — dark cards, arrows + swipe) ===== */
   .review{border:1px solid var(--line);border-radius:5px;padding:32px 28px;background:linear-gradient(160deg,var(--walnut-2),var(--ink));display:flex;flex-direction:column}
   .review .stars{color:var(--gold);font-size:17px;letter-spacing:3px;margin-bottom:16px}
   .review blockquote{font-size:18px;color:var(--parchment);line-height:1.55;font-style:italic;margin-bottom:22px;flex:1}
   .review figcaption{font-family:var(--util);text-transform:uppercase;letter-spacing:.14em;font-size:13px;color:var(--brass-bright)}
+  .rev-carousel{position:relative}
+  .rev-viewport{position:relative}
+  .rev-track{display:flex;gap:22px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:4px}
+  .rev-track::-webkit-scrollbar{display:none}
+  .rev-track .review{flex:0 0 min(400px,84%);scroll-snap-align:center}
+  /* Dots rendered in normal flow beneath a carousel (reviews + UGC) */
+  .carousel-dots.dots-below{position:static;margin-top:24px}
 
-  /* Reviews: horizontal swipe carousel on mobile (saves vertical space) */
-  @media(max-width:860px){
-    .reviews{display:flex;grid-template-columns:none;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;gap:14px;max-width:none;margin:0;padding-bottom:4px}
-    .reviews::-webkit-scrollbar{display:none}
-    .review{flex:0 0 86%;scroll-snap-align:start}
-  }
+  /* ===== CUSTOMER VIDEO STRIP (UGC) — portrait 9:16 cards ===== */
+  .ugc-carousel{position:relative}
+  .ugc-viewport{position:relative}
+  .ugc-track{display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:4px}
+  .ugc-track::-webkit-scrollbar{display:none}
+  .ugc-card{flex:0 0 min(230px,64%);scroll-snap-align:center}
+  .ugc-media{position:relative;aspect-ratio:9/16;border:1px solid var(--line);border-radius:6px;overflow:hidden;background:linear-gradient(160deg,var(--walnut-2),var(--ink));display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px}
+  .ugc-media video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .ugc-play{width:56px;height:56px;border-radius:50%;border:1px solid var(--gold);background:rgba(14,11,8,.5);display:flex;align-items:center;justify-content:center;flex:none}
+  .ugc-play svg{width:22px;height:22px;fill:var(--brass-bright);margin-left:3px}
+  .ugc-ph-label{font-family:var(--util);text-transform:uppercase;letter-spacing:.18em;font-size:11px;color:var(--parchment-dim)}
+  .ugc-meta{margin-top:14px;text-align:center;min-height:44px}
+  .ugc-stars{color:var(--gold);font-size:14px;letter-spacing:2px;line-height:1}
+  .ugc-stars.is-empty{color:var(--line)}
+  .ugc-name{font-family:var(--util);text-transform:uppercase;letter-spacing:.14em;font-size:12px;color:var(--brass-bright);margin-top:6px;min-height:15px}
   @media(max-width:620px){
-    .compare-head>div,.compare-row>div{padding:12px 10px;font-size:13px;gap:6px}
-    .compare-feature{font-size:11px}
-    .compare-us svg{width:14px;height:14px}
     /* Craftsman story: stacked, but with a small image so it doesn't dominate */
     .craft-inner{gap:20px}
     .craft-photo{max-width:180px;margin:0;padding:6px}
