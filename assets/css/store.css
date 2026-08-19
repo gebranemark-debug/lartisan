@@ -24,6 +24,10 @@
 
 /* ===== Bundle page ===== */
 .bundle-wrap{max-width:920px;margin:0 auto}
+/* Kit image between the intro and the bundle cards (same cutout + soft shadow
+   as the product hero), moderate size so it doesn't dominate. */
+.bundle-hero{max-width:330px;margin:0 auto 42px}
+.bundle-hero img{width:100%;filter:drop-shadow(0 18px 30px rgba(0,0,0,0.55))}
 .bundle-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
 .bundle-card{position:relative;border:1px solid var(--line);border-radius:5px;padding:36px 26px 30px;background:linear-gradient(160deg,var(--walnut-2),var(--ink));cursor:pointer;transition:border-color .3s,transform .3s,box-shadow .3s;text-align:center}
 .bundle-card:hover{transform:translateY(-3px)}
