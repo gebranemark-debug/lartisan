@@ -266,12 +266,23 @@
   .product-points li{display:flex;gap:12px;align-items:center;font-size:17px;color:var(--parchment)}
   .product-points .pp-ico{font-size:19px;line-height:1;flex:none;width:24px;text-align:center}
   .product-actions{display:flex;gap:14px;flex-wrap:wrap}
-  /* Glass Collection — purchase-option cards (Single / Set of 2 / Set of 3) */
-  .glass-options{display:flex;gap:12px;flex-wrap:wrap}
-  .glass-opt{flex:1 1 120px;display:flex;flex-direction:column;align-items:center;gap:4px;border:1px solid var(--line);border-radius:4px;padding:16px 12px;text-align:center;background:linear-gradient(160deg,var(--walnut-2),var(--ink));transition:border-color .25s,transform .25s,box-shadow .25s}
-  .glass-opt:hover{border-color:var(--gold);transform:translateY(-2px);box-shadow:0 12px 28px rgba(0,0,0,.4)}
-  .glass-opt .go-name{font-family:var(--util);text-transform:uppercase;letter-spacing:.14em;font-size:13px;color:var(--parchment-dim)}
-  .glass-opt .go-price{font-family:var(--display);font-size:24px;line-height:1;color:var(--brass-bright)}
+  /* Glass Collection — centered product cards (image on top, text below).
+     Grid holds up to two cards side by side on desktop, one column on mobile. */
+  .glass-collection{display:grid;grid-template-columns:repeat(auto-fit,minmax(0,340px));gap:30px;justify-content:center;margin-top:6px}
+  .glass-card{max-width:340px;margin:0 auto;display:flex;flex-direction:column;border:1px solid var(--line);border-radius:6px;overflow:hidden;background:linear-gradient(160deg,var(--walnut-2),var(--ink));transition:border-color .3s,transform .3s,box-shadow .3s}
+  .glass-card:hover{border-color:var(--gold);transform:translateY(-3px);box-shadow:0 22px 54px rgba(0,0,0,.45)}
+  /* Smaller carousel; images FILL a fixed 3:2 tile (matching mountain-cups-hero-2.jpg)
+     with object-fit:cover — no dark bars, overflow cropped, never letterboxed. */
+  .glass-card-carousel{border:none;border-radius:0;background:none}
+  .glass-card-carousel .carousel-slide{aspect-ratio:3/2}
+  .glass-card-carousel .carousel-slide img{object-fit:cover;object-position:center}
+  .glass-card-carousel .carousel-arrow{width:34px;height:34px;font-size:20px}
+  .glass-card-carousel .carousel-arrow.prev{left:8px}
+  .glass-card-carousel .carousel-arrow.next{right:8px}
+  .glass-card-body{padding:22px 24px 26px;text-align:center;display:flex;flex-direction:column;align-items:center}
+  .glass-card-body h3{font-family:var(--display);font-size:25px;color:var(--brass-bright);line-height:1.15;margin-bottom:12px}
+  .glass-card-body .product-cod{margin-bottom:20px}
+  .glass-card-body .btn{min-width:200px;justify-content:center}
 
   @media(max-width:960px){
     .product-grid{grid-template-columns:1fr;grid-template-areas:"head" "media" "info";column-gap:0;row-gap:26px}
@@ -297,6 +308,8 @@
     .craft-photo{max-width:180px;margin:0;padding:6px}
     .craft-copy h2{font-size:25px;margin-bottom:14px;line-height:1.2}
     .craft-copy p{font-size:16px;line-height:1.6}
+    /* Keep the glass card compact on phones too */
+    .glass-card{max-width:300px}
   }
 
   @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}.reveal{opacity:1;transform:none}}
