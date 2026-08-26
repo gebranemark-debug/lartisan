@@ -144,6 +144,9 @@
   .gal-item.tin-fit{background:#ffffff}
   .gal-item.tin-fit img{object-fit:contain;padding:10px}
   .gal-item.tin-fit:hover img{transform:scale(1.03)}
+  /* Contain (uncropped) tiles on the dark tile background */
+  .gal-item.contain img{object-fit:contain}
+  .gal-item.contain:hover img{transform:scale(1.03)}
   .gal-ph{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;height:100%;color:var(--parchment-dim)}
   .gal-ph svg{width:34px;height:34px;stroke:var(--gold);fill:none;stroke-width:1.3;opacity:.7}
   .gal-ph span{font-family:var(--util);text-transform:uppercase;letter-spacing:.18em;font-size:11px;text-align:center;padding:0 16px;opacity:.75}
