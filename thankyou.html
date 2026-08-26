@@ -53,7 +53,7 @@
     <span class="eyebrow" id="tyEyebrow">Order confirmed</span>
     <h1 id="tyTitle">Thank you — your order's in.</h1>
     <p id="tyBody">We've received your order<span id="tyBundle"></span>. We'll confirm the delivery timing with you shortly, and you pay cash when it arrives.</p>
-    <p class="ty-note">A confirmation email is on its way.</p>
+    <p class="ty-note" id="tyNote">A confirmation email is on its way.</p>
     <div class="ty-actions">
       <a class="btn btn-gold" href="index.html">Back to home</a>
     </div>
@@ -93,6 +93,14 @@
       set("tyEyebrow", "Membership confirmed");
       set("tyTitle", "You're in — welcome to the Oak Club.");
       set("tyBody", "Thanks for joining the Oak Club. We'll be in touch to confirm your first month's flavour — no card needed, cancel any time.");
+      return;
+    }
+    if (params.get("product") === "glass") {
+      var GLASS = { "1": "Single", "2": "Set of 2", "3": "Set of 3" };
+      var gk = params.get("bundle");
+      if (GLASS[gk]) document.getElementById("tyBundle").textContent = " (" + GLASS[gk] + " · Japanese Mountain Glasses)";
+      var gnote = document.getElementById("tyNote");
+      if (gnote) gnote.style.display = "none";   // no glass confirmation email yet
       return;
     }
     var BUNDLES = { "1": "Buy 1", "2": "Buy 2", "3": "Buy 3" };
