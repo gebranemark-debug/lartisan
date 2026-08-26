@@ -8,6 +8,7 @@
 .page-head .eyebrow{display:block;margin-bottom:18px}
 .page-head h1{font-size:clamp(34px,5vw,58px);color:var(--brass-bright);margin-bottom:18px;letter-spacing:.02em}
 .page-head p{max-width:620px;margin:0 auto;font-size:20px;color:var(--parchment)}
+.page-head .page-head-specs{margin-top:18px;margin-bottom:0}
 
 /* ===== Our Catalog — flavour grid ===== */
 .cat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
@@ -28,6 +29,9 @@
    as the product hero), moderate size so it doesn't dominate. */
 .bundle-hero{max-width:330px;margin:0 auto 42px}
 .bundle-hero img{width:100%;filter:drop-shadow(0 18px 30px rgba(0,0,0,0.55))}
+/* Photo hero (glasses): a real photograph rather than a cutout, so frame it. */
+.bundle-hero-photo{max-width:440px}
+.bundle-hero-photo img{border:1px solid var(--line);border-radius:8px}
 .bundle-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
 .bundle-card{position:relative;border:1px solid var(--line);border-radius:5px;padding:36px 26px 30px;background:linear-gradient(160deg,var(--walnut-2),var(--ink));cursor:pointer;transition:border-color .3s,transform .3s,box-shadow .3s;text-align:center}
 .bundle-card:hover{transform:translateY(-3px)}
@@ -41,6 +45,11 @@
 .bundle-was{display:block;margin-top:6px;font-size:16px;color:var(--parchment-dim);text-decoration:line-through}
 .bundle-save{display:inline-block;margin-top:12px;font-family:var(--util);text-transform:uppercase;letter-spacing:.14em;font-size:12px;color:var(--ink);background:var(--brass);border-radius:2px;padding:4px 10px}
 .bundle-badge{position:absolute;top:-11px;left:50%;transform:translateX(-50%);white-space:nowrap;font-family:var(--util);text-transform:uppercase;letter-spacing:.16em;font-size:11px;color:var(--ink);background:var(--gold);padding:5px 14px;border-radius:2px}
+/* Two badges on one card (e.g. Most popular + Best value): a centered row of
+   pills sitting on the card's top edge, same look as the single badge. */
+.bundle-badges{position:absolute;top:-11px;left:50%;transform:translateX(-50%);display:flex;gap:6px;white-space:nowrap}
+.bundle-badges .bundle-badge{position:static;top:auto;left:auto;transform:none;font-size:10px;padding:4px 10px;letter-spacing:.12em}
+.bundle-badges .bundle-badge:last-child{background:var(--brass-bright)}
 .bundle-note{font-size:15px;color:var(--parchment-dim);margin-top:16px}
 .bundle-cta{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-top:44px}
 .bundle-cta .btn{min-width:220px;justify-content:center}
@@ -74,6 +83,8 @@
   .bundle-save{grid-area:save;margin:0;justify-self:end;font-size:10px;padding:3px 8px}
   .bundle-note{grid-area:note;margin:3px 0 0;font-size:12px;line-height:1.25}
   .bundle-badge{top:-9px;font-size:10px;padding:4px 9px;letter-spacing:.12em}
+  .bundle-badges{top:-9px}
+  .bundle-badges .bundle-badge{top:auto;padding:4px 9px}
 }
 
 /* ===== Checkout / order form ===== */

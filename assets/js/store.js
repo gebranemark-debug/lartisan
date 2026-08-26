@@ -20,19 +20,27 @@
   var hdr = document.getElementById("hdr");
   if (hdr) addEventListener("scroll", function () { hdr.classList.toggle("scrolled", scrollY > 40); });
 
-  // ---- bundle selection (bundle page only) ----
+  // ---- bundle selection (bundle pages: kit + glasses) ----
   var cards = document.querySelectorAll(".bundle-card");
   var buynowBtns = document.querySelectorAll('[data-buynow]');
   if (cards.length) {
-    var sel = 2; // default: Buy 2 (most popular)
+    // Optional per-page overrides on the grid / buy button: data-default sets
+    // the initially-selected quantity, data-product adds ?product= to the
+    // checkout link. Without them this is the kit's original behaviour
+    // (default Buy 2, checkout.html?bundle=N).
+    var grid = document.querySelector(".bundle-grid");
+    var sel = (grid && +grid.dataset.default) || 2; // default: Buy 2 (most popular)
     var apply = function () {
       cards.forEach(function (c) {
         var on = (+c.dataset.qty === sel);
         c.classList.toggle("selected", on);
         c.setAttribute("aria-checked", on ? "true" : "false");
       });
-      // "Buy it now" -> checkout page, carrying the selected bundle
-      buynowBtns.forEach(function (b) { b.href = "checkout.html?bundle=" + sel; });
+      // "Buy it now" -> checkout page, carrying the selected bundle (and product)
+      buynowBtns.forEach(function (b) {
+        var product = b.getAttribute("data-product"); // e.g. "glass"; absent for the kit
+        b.href = "checkout.html?" + (product ? "product=" + product + "&" : "") + "bundle=" + sel;
+      });
     };
     var pick = function (c) { sel = +c.dataset.qty; apply(); };
     cards.forEach(function (c) {
