@@ -95,12 +95,14 @@
       set("tyBody", "Thanks for joining the Oak Club. We'll be in touch to confirm your first month's flavour — no card needed, cancel any time.");
       return;
     }
-    if (params.get("product") === "glass") {
-      var GLASS = { "1": "Single", "2": "Set of 2", "3": "Set of 3" };
+    var prod = params.get("product");
+    if (prod === "glass" || prod === "spinning") {
+      var SETS = { "1": "Single", "2": "Set of 2", "3": "Set of 3" };
+      var name = (prod === "spinning") ? "Spinning Glasses" : "Japanese Mountain Glasses";
       var gk = params.get("bundle");
-      if (GLASS[gk]) document.getElementById("tyBundle").textContent = " (" + GLASS[gk] + " · Japanese Mountain Glasses)";
+      if (SETS[gk]) document.getElementById("tyBundle").textContent = " (" + SETS[gk] + " · " + name + ")";
       var gnote = document.getElementById("tyNote");
-      if (gnote) gnote.style.display = "none";   // no glass confirmation email yet
+      if (gnote) gnote.style.display = "none";   // no confirmation email for the glass products yet
       return;
     }
     var BUNDLES = { "1": "Buy 1", "2": "Buy 2", "3": "Buy 3" };

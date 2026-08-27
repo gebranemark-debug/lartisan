@@ -20,7 +20,7 @@
   var hdr = document.getElementById("hdr");
   if (hdr) addEventListener("scroll", function () { hdr.classList.toggle("scrolled", scrollY > 40); });
 
-  // ---- bundle selection (bundle pages: kit + glasses) ----
+  // ---- bundle selection + design picker (bundle pages: kit, glasses, spinning) ----
   var cards = document.querySelectorAll(".bundle-card");
   var buynowBtns = document.querySelectorAll('[data-buynow]');
   if (cards.length) {
@@ -30,16 +30,38 @@
     // (default Buy 2, checkout.html?bundle=N).
     var grid = document.querySelector(".bundle-grid");
     var sel = (grid && +grid.dataset.default) || 2; // default: Buy 2 (most popular)
+
+    // Configurator (spinning glasses): one design dropdown per glass. As many rows
+    // show as the chosen quantity, so the selection can never fail to add up — no
+    // stepper / running total. Absent on the kit + mountain-glasses pages.
+    var picker = document.querySelector("[data-design-picker]");
+    var designRows = picker ? picker.querySelectorAll(".design-row") : [];
+    var designSelects = picker ? picker.querySelectorAll(".design-select") : [];
+
     var apply = function () {
       cards.forEach(function (c) {
         var on = (+c.dataset.qty === sel);
         c.classList.toggle("selected", on);
         c.setAttribute("aria-checked", on ? "true" : "false");
       });
-      // "Buy it now" -> checkout page, carrying the selected bundle (and product)
+      // show exactly `sel` design rows; the first is "Design" when buying one,
+      // otherwise the rows are "Glass 1 / Glass 2 / Glass 3"
+      for (var i = 0; i < designRows.length; i++) {
+        var n = i + 1;
+        designRows[i].style.display = (n <= sel) ? "" : "none";
+        var lbl = designRows[i].querySelector(".design-label");
+        if (lbl) lbl.textContent = (sel === 1) ? "Design" : ("Glass " + n);
+      }
+      // "Buy it now" -> checkout, carrying the selected bundle (+ product + designs)
       buynowBtns.forEach(function (b) {
-        var product = b.getAttribute("data-product"); // e.g. "glass"; absent for the kit
-        b.href = "checkout.html?" + (product ? "product=" + product + "&" : "") + "bundle=" + sel;
+        var product = b.getAttribute("data-product"); // "glass"/"spinning"; absent for the kit
+        var href = "checkout.html?" + (product ? "product=" + product + "&" : "") + "bundle=" + sel;
+        if (picker) {
+          var ds = [];
+          for (var j = 0; j < sel && j < designSelects.length; j++) ds.push(designSelects[j].value);
+          if (ds.length) href += "&d=" + ds.map(encodeURIComponent).join(",");
+        }
+        b.href = href;
       });
     };
     var pick = function (c) { sel = +c.dataset.qty; apply(); };
@@ -49,6 +71,8 @@
         if (e.key === "Enter" || e.key === " ") { e.preventDefault(); pick(c); }
       });
     });
+    // rebuild the checkout link whenever a design changes
+    for (var k = 0; k < designSelects.length; k++) designSelects[k].addEventListener("change", apply);
     apply();
   }
 

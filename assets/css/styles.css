@@ -260,8 +260,8 @@
   .product-actions{display:flex;gap:14px;flex-wrap:wrap}
   /* Glass Collection — centered product cards (image on top, text below).
      Grid holds up to two cards side by side on desktop, one column on mobile. */
-  .glass-collection{display:grid;grid-template-columns:repeat(auto-fit,minmax(0,340px));gap:30px;justify-content:center;margin-top:6px}
-  .glass-card{max-width:340px;margin:0 auto;display:flex;flex-direction:column;border:1px solid var(--line);border-radius:6px;overflow:hidden;background:linear-gradient(160deg,var(--walnut-2),var(--ink));transition:border-color .3s,transform .3s,box-shadow .3s}
+  .glass-collection{display:grid;grid-template-columns:repeat(auto-fit,minmax(0,300px));gap:26px;justify-content:center;margin-top:6px}
+  .glass-card{max-width:300px;margin:0 auto;display:flex;flex-direction:column;border:1px solid var(--line);border-radius:6px;overflow:hidden;background:linear-gradient(160deg,var(--walnut-2),var(--ink));transition:border-color .3s,transform .3s,box-shadow .3s}
   .glass-card:hover{border-color:var(--gold);transform:translateY(-3px);box-shadow:0 22px 54px rgba(0,0,0,.45)}
   /* Smaller carousel; images FILL a fixed 3:2 tile (matching mountain-cups-hero-2.jpg)
      with object-fit:cover — no dark bars, overflow cropped, never letterboxed. */
@@ -271,10 +271,10 @@
   .glass-card-carousel .carousel-arrow{width:34px;height:34px;font-size:20px}
   .glass-card-carousel .carousel-arrow.prev{left:8px}
   .glass-card-carousel .carousel-arrow.next{right:8px}
-  .glass-card-body{padding:22px 24px 26px;text-align:center;display:flex;flex-direction:column;align-items:center}
-  .glass-card-body h3{font-family:var(--display);font-size:25px;color:var(--brass-bright);line-height:1.15;margin-bottom:12px}
-  .glass-card-body .product-cod{margin-bottom:20px}
-  .glass-card-body .btn{min-width:200px;justify-content:center}
+  .glass-card-body{padding:18px 18px 22px;text-align:center;display:flex;flex-direction:column;align-items:center}
+  .glass-card-body h3{font-family:var(--display);font-size:22px;color:var(--brass-bright);line-height:1.15;margin-bottom:8px}
+  .glass-card-body .product-cod{font-size:11px;margin-bottom:16px}
+  .glass-card-body .btn{min-width:168px;justify-content:center}
 
   @media(max-width:960px){
     .product-grid{grid-template-columns:1fr;grid-template-areas:"head" "media" "info";column-gap:0;row-gap:26px}
