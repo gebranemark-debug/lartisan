@@ -164,9 +164,10 @@
     </div>
     <div class="video-stage reveal">
       <!-- Real HTML5 player: native controls, sound on, no autoplay. playsinline
-           keeps iOS in place. Poster shows a branded frame before play. -->
-      <video class="exp-video" id="expVideo" controls playsinline preload="metadata" poster="assets/img/experience-poster.jpg">
-        <source src="assets/video/experience.mp4" type="video/mp4">
+           keeps iOS in place. No poster image — the #t=0.001 media fragment makes
+           the browser render the video's own first frame as the still. -->
+      <video class="exp-video" id="expVideo" controls playsinline preload="metadata">
+        <source src="assets/video/experience.mp4#t=0.001" type="video/mp4">
         Your browser can't play this video — <a href="assets/video/experience.mp4">download it here</a>.
       </video>
     </div>
