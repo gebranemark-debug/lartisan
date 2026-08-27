@@ -4,8 +4,10 @@
      1) appends the order to the Google Sheet (Apps Script, via sendBeacon),
      2) emails the customer a confirmation (EmailJS — kit only for now),
      3) redirects to the thank-you page.
-   Two products share this flow: the Signature Kit (default) and the Glass
-   Collection (?product=glass). No cart, no card, no server of our own. */
+   Three products share this flow: the Signature Kit (default), the Japanese
+   Mountain Glasses (?product=glass) and the Spinning Glasses (?product=spinning,
+   which also carries a per-glass design breakdown via ?d=). No cart, no card,
+   no server of our own. */
 (function () {
   "use strict";
 
@@ -42,22 +44,57 @@
         "2": { label: "Set of 2 — 2 Japanese Mountain Glasses", total: "$20" },
         "3": { label: "Set of 3 — 3 Japanese Mountain Glasses", total: "$26" }
       }
+    },
+    spinning: {
+      type: "Glass Order",        // same Sheet "type" as the mountain glasses
+      change: "spinning-bundle.html",
+      email: false,               // no spinning mailbox yet — see TODO below
+      variants: {
+        "1": { label: "Spinning Glasses — Single",  total: "$15" },
+        "2": { label: "Spinning Glasses — Set of 2", total: "$27" },
+        "3": { label: "Spinning Glasses — Set of 3", total: "$39" }
+      }
     }
   };
 
   function qp(name) { return new URLSearchParams(location.search).get(name); }
-  var productKey = (qp("product") === "glass") ? "glass" : "kit";   // default: kit
+  var productKey = PRODUCTS.hasOwnProperty(qp("product")) ? qp("product") : "kit"; // default: kit
   var product = PRODUCTS[productKey];
   var bundleKey = product.variants.hasOwnProperty(qp("bundle")) ? qp("bundle") : "1"; // default variant 1
   var bundle = product.variants[bundleKey];
+
+  // Spinning glasses carry a per-glass design breakdown via ?d= (comma-separated,
+  // URL-encoded, one entry per glass). Clamp to the quantity; default any missing
+  // pick to Fluté so a valid, complete selection always exists.
+  var DESIGN_ORDER = ["Fluté", "Majesté", "Sculpté"];
+  var designs = [];
+  if (productKey === "spinning") {
+    var qty = +bundleKey || 1;
+    var raw = (qp("d") || "").split(",").map(function (s) { return s.trim(); });
+    var validDesign = { "Fluté": 1, "Majesté": 1, "Sculpté": 1 };
+    designs = raw.filter(function (d) { return validDesign[d]; }).slice(0, qty);
+    while (designs.length < qty) designs.push("Fluté");
+  }
+  function designBreakdown() {
+    // counts per design, ordered Fluté, Majesté, Sculpté -> "2x Fluté, 1x Majesté"
+    var counts = {};
+    designs.forEach(function (d) { counts[d] = (counts[d] || 0) + 1; });
+    return DESIGN_ORDER.filter(function (d) { return counts[d]; })
+      .map(function (d) { return counts[d] + "x " + d; }).join(", ");
+  }
 
   // ---- order summary ----
   var sB = document.getElementById("summaryBundle");
   var sT = document.getElementById("summaryTotal");
   var sC = document.getElementById("summaryChange");
+  var sD = document.getElementById("summaryDesigns");
   if (sB) sB.textContent = bundle.label;
   if (sT) sT.textContent = bundle.total;
   if (sC) sC.setAttribute("href", product.change);
+  if (sD) {                                    // chosen designs (spinning only)
+    if (productKey === "spinning") { sD.textContent = designBreakdown(); sD.style.display = ""; }
+    else { sD.style.display = "none"; }
+  }
 
   // ---- payment selection (ready for future options, e.g. Whish Money) ----
   document.querySelectorAll('input[name="payment"]').forEach(function (r) {
@@ -122,7 +159,8 @@
         type: product.type,
         firstName: o.firstName, lastName: o.lastName, phone: o.phone,
         city: o.city, address: o.address, email: o.email,
-        bundle: o.bundle + " (" + o.total + ")", notes: o.notes,
+        bundle: o.bundle + " (" + o.total + ")" + (productKey === "spinning" ? ": " + designBreakdown() : ""),
+        notes: o.notes,
         paymentMethod: paymentMethod()
       });
       navigator.sendBeacon(CONFIG.SHEET_URL, new Blob([payload], { type: "text/plain;charset=UTF-8" }));
@@ -143,21 +181,22 @@
             .catch(function (err) { console.warn("EmailJS failed:", err); })
         : Promise.resolve();
     } else {
-      // TODO (glass confirmation email): the dedicated glass mailbox / EmailJS
-      // template for "Japanese Mountain Glasses" isn't set up yet. Once it is,
-      // send the glass-order confirmation HERE — mirror the kit's emailjs.send()
-      // above with the glass service/template and glass-appropriate params
-      // (first_name, last_name, bundle, total, address, city, phone, notes, email).
-      // For now, glass orders skip email and still write to the Sheet + redirect.
+      // TODO (glass confirmation email): the dedicated mailbox / EmailJS template
+      // for the glass products (Japanese Mountain Glasses and Spinning Glasses)
+      // isn't set up yet. Once it is, send the confirmation HERE — mirror the kit's
+      // emailjs.send() above with the glass service/template and glass-appropriate
+      // params (first_name, last_name, bundle, total, address, city, phone, notes,
+      // email; for spinning, `bundle` already includes the design breakdown). For
+      // now, glass orders skip email and still write to the Sheet + redirect.
       emailP = Promise.resolve();
     }
 
     // 3) redirect once the email settles (or after 4s at most).
-    // Kit keeps its existing URL (?bundle=N); glass adds &product=glass so the
-    // thank-you page shows the right label and skips the "email on its way" note.
+    // Kit keeps its existing URL (?bundle=N); the glass products add &product=…
+    // so the thank-you page shows the right label and skips the email note.
     var go = function () {
       location.href = "thankyou.html?bundle=" + encodeURIComponent(bundleKey)
-        + (productKey === "glass" ? "&product=glass" : "");
+        + (productKey !== "kit" ? "&product=" + productKey : "");
     };
     Promise.race([emailP, new Promise(function (r) { setTimeout(r, 4000); })]).then(go);
   });
