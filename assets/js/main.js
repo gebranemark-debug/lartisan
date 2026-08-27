@@ -1,21 +1,8 @@
 /* ===== L'Artisan — home page =====
    Home-specific behaviour only. Shared logic (mobile menu, header scroll
    state, reveal-on-scroll, same-page smooth-scroll) lives in store.js,
-   which the home page also loads. */
-
-// ===== experience video: loads only on tap (preload=none); poster until then =====
-(function () {
-  var stage = document.getElementById("videoStage");
-  var v = document.getElementById("expVideo");
-  var btn = document.getElementById("playBtn");
-  if (!stage || !v || !btn) return;
-  btn.addEventListener("click", function () {
-    stage.classList.add("playing");            // reveal the video, hide the poster overlay
-    v.play().catch(function () {                // user tapped, so sound is allowed;
-      v.muted = true; v.play();                 // fall back to muted only if a browser blocks it
-    });
-  });
-})();
+   which the home page also loads. The experience video is a plain HTML5
+   <video controls> player now, so it needs no JavaScript. */
 
 // ===== generic horizontal carousel =====
 // Any [data-carousel] with a [data-carousel-track] (and optional
