@@ -259,8 +259,9 @@
   .product-points .pp-ico{font-size:19px;line-height:1;flex:none;width:24px;text-align:center}
   .product-actions{display:flex;gap:14px;flex-wrap:wrap}
   /* Glass Collection — centered product cards (image on top, text below).
-     Grid holds up to two cards side by side on desktop, one column on mobile. */
-  .glass-collection{display:grid;grid-template-columns:repeat(auto-fit,minmax(0,300px));gap:26px;justify-content:center;margin-top:6px}
+     Two cards sit side by side at EVERY width (1fr 1fr, no collapse); they
+     shrink to fit rather than stacking on mobile. */
+  .glass-collection{display:grid;grid-template-columns:1fr 1fr;gap:26px;max-width:640px;margin:6px auto 0}
   .glass-card{max-width:300px;margin:0 auto;display:flex;flex-direction:column;border:1px solid var(--line);border-radius:6px;overflow:hidden;background:linear-gradient(160deg,var(--walnut-2),var(--ink));transition:border-color .3s,transform .3s,box-shadow .3s}
   .glass-card:hover{border-color:var(--gold);transform:translateY(-3px);box-shadow:0 22px 54px rgba(0,0,0,.45)}
   /* Smaller carousel; images FILL a fixed 3:2 tile (matching mountain-cups-hero-2.jpg)
@@ -300,8 +301,16 @@
     .craft-photo{max-width:180px;margin:0;padding:6px}
     .craft-copy h2{font-size:25px;margin-bottom:14px;line-height:1.2}
     .craft-copy p{font-size:16px;line-height:1.6}
-    /* Keep the glass card compact on phones too */
-    .glass-card{max-width:300px}
+    /* Two glass cards stay side by side on phones — shrink the gap, padding,
+       type and button so both fit; the 3:2 carousel scales down with the card. */
+    .glass-collection{gap:14px}
+    .glass-card-body{padding:12px 10px 16px}
+    .glass-card-body h3{font-size:15px;margin-bottom:5px;line-height:1.12}
+    .glass-card-body .product-cod{font-size:9px;letter-spacing:.04em;margin-bottom:12px}
+    .glass-card-body .btn{min-width:0;width:100%;padding:11px 6px;font-size:12px;letter-spacing:.06em;gap:5px}
+    .glass-card-carousel .carousel-arrow{width:26px;height:26px;font-size:15px}
+    .glass-card-carousel .carousel-arrow.prev{left:5px}
+    .glass-card-carousel .carousel-arrow.next{right:5px}
   }
 
   @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}.reveal{opacity:1;transform:none}}
