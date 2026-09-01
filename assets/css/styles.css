@@ -79,7 +79,9 @@
   .sec-head p{color:var(--parchment);font-size:20px}
   .divider{display:flex;align-items:center;justify-content:center;gap:16px;margin:22px 0}
   .divider .dl{width:60px;height:1px;background:var(--line)}
-  .divider .fleur{width:15px;height:20px;fill:#c9a84c}
+  /* fleur.png is a gold mark on an opaque near-black background; `screen` drops
+     that black onto the site's dark sections so only the gold shows (no dark box). */
+  .fleur-img{height:32px;width:auto;display:inline-block;vertical-align:middle;mix-blend-mode:screen}
 
   .acts{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--line-soft);border:1px solid var(--line-soft)}
   .act{background:var(--ink);padding:52px 38px;transition:background .4s}
@@ -208,8 +210,10 @@
   .foot-socials a{display:inline-flex;color:var(--parchment-dim);margin:0;transition:color .25s}
   .foot-socials a:hover{color:var(--brass-bright)}
   .foot-socials svg{width:22px;height:22px;display:block}
-  /* Whish logo is an <img> in the footer (styled inline) — see index.html */
   .foot-bottom{border-top:1px solid var(--line-soft);padding-top:26px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-family:var(--util);letter-spacing:.1em;font-size:13px;color:var(--parchment-dim);text-transform:uppercase}
+  /* Whish logo — centered row at the very bottom of the page (below the © bar) */
+  .whish-bottom{text-align:center;padding:10px 0 14px;background:var(--walnut)}
+  .whish-bottom img{height:26px;opacity:0.75;pointer-events:none;cursor:default;display:inline-block}
 
   .reveal{opacity:0;transform:translateY(28px);transition:opacity .9s ease,transform .9s ease}
   .reveal.in{opacity:1;transform:none}
