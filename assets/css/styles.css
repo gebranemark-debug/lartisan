@@ -66,6 +66,11 @@
 
   section{position:relative}
   .band{padding:88px 0}
+  /* Home page: tighter gaps BETWEEN sections (~45% less vertical padding) so the
+     page feels less bloated. Within-section spacing is untouched. Scoped to
+     .home so the other pages keep the default rhythm. */
+  .home .band{padding:48px 0}
+  .home footer{padding:40px 0 40px}
   .gal-strip-label{text-align:center;margin:52px 0 22px}
   .band.walnut{background:linear-gradient(180deg,var(--walnut),var(--ink))}
   .sec-head{text-align:center;max-width:640px;margin:0 auto 70px}
@@ -74,7 +79,7 @@
   .sec-head p{color:var(--parchment);font-size:20px}
   .divider{display:flex;align-items:center;justify-content:center;gap:16px;margin:22px 0}
   .divider .dl{width:60px;height:1px;background:var(--line)}
-  .divider .fleur{width:16px;height:22px;fill:var(--gold)}
+  .divider .fleur{width:15px;height:20px;fill:#c9a84c}
 
   .acts{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--line-soft);border:1px solid var(--line-soft)}
   .act{background:var(--ink);padding:52px 38px;transition:background .4s}
@@ -91,6 +96,12 @@
   .video-stage{display:flex;justify-content:center}
   /* Portrait 9:16 player, width-driven so it scales cleanly on mobile */
   .exp-video{display:block;width:min(340px,86vw);aspect-ratio:9/16;height:auto;max-width:100%;object-fit:cover;border-radius:6px;border:1px solid var(--line);box-shadow:0 30px 80px rgba(0,0,0,.55);background:#000}
+  /* Video carousel — two portrait 9:16 players, swipe + arrows + dots. Dots sit
+     BELOW the frame so they never overlap the native video controls. */
+  .video-carousel{max-width:min(340px,86vw);margin:0 auto}
+  .video-viewport{position:relative;border:1px solid var(--line);border-radius:6px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.55);background:#000}
+  .video-carousel .carousel-slide{aspect-ratio:9/16}
+  .video-carousel .carousel-slide video{width:100%;height:100%;object-fit:cover;background:#000;display:block}
 
   .kit-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:60px;align-items:center}
   .kit-photo{aspect-ratio:4/5;border:1px solid var(--line);border-radius:3px;overflow:hidden;position:relative;background:linear-gradient(160deg,var(--walnut-2),var(--ink))}
@@ -192,6 +203,12 @@
   .foot-col h5{font-family:var(--util);text-transform:uppercase;letter-spacing:.2em;font-size:13px;color:var(--gold);margin-bottom:18px;font-weight:600}
   .foot-col a,.foot-col p{display:block;font-size:16px;color:var(--parchment-dim);margin-bottom:11px;transition:color .25s}
   .foot-col a:hover{color:var(--brass-bright)}
+  /* Find us — social icons + Whish logo */
+  .foot-socials{display:flex;gap:14px;margin-bottom:16px}
+  .foot-socials a{display:inline-flex;color:var(--parchment-dim);margin:0;transition:color .25s}
+  .foot-socials a:hover{color:var(--brass-bright)}
+  .foot-socials svg{width:22px;height:22px;display:block}
+  .whish-logo{display:inline-block;color:#e8002d;font-family:'Helvetica Neue',Arial,sans-serif;font-weight:700;font-size:21px;letter-spacing:-.02em;line-height:1;margin-bottom:12px;pointer-events:none;user-select:none}
   .foot-bottom{border-top:1px solid var(--line-soft);padding-top:26px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-family:var(--util);letter-spacing:.1em;font-size:13px;color:var(--parchment-dim);text-transform:uppercase}
 
   .reveal{opacity:0;transform:translateY(28px);transition:opacity .9s ease,transform .9s ease}
@@ -213,6 +230,7 @@
     .flav-tab::before{display:none}
     .flav-tab.active{border-bottom:2px solid var(--gold)}
     .band{padding:60px 0}
+    .home .band{padding:34px 0}
   }
   .mobile-menu{display:none;position:fixed;inset:0;z-index:99;background:rgba(14,11,8,.98);flex-direction:column;align-items:center;justify-content:center;gap:30px}
   .mobile-menu.open{display:flex}
