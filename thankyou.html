@@ -101,8 +101,8 @@
       var name = (prod === "spinning") ? "Spinning Glasses" : "Japanese Mountain Glasses";
       var gk = params.get("bundle");
       if (SETS[gk]) document.getElementById("tyBundle").textContent = " (" + SETS[gk] + " · " + name + ")";
-      var gnote = document.getElementById("tyNote");
-      if (gnote) gnote.style.display = "none";   // no confirmation email for the glass products yet
+      // The confirmation-email note stays visible: glass orders now send the
+      // same email as the kit (see checkout.js).
       return;
     }
     var BUNDLES = { "1": "Buy 1", "2": "Buy 2", "3": "Buy 3" };

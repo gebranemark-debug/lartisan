@@ -28,7 +28,6 @@
     kit: {
       type: "Kit Order",          // Sheet "type" column (col J)
       change: "bundle.html",      // where the summary "Change" link goes
-      email: true,                // send the EmailJS confirmation
       variants: {
         "1": { label: "Buy 1 — 1 Signature Smoker Kit",  total: "$55" },
         "2": { label: "Buy 2 — 2 Signature Smoker Kits", total: "$100" },
@@ -38,7 +37,6 @@
     glass: {
       type: "Glass Order",
       change: "index.html#glass",
-      email: false,               // dedicated glass mailbox not set up yet — see TODO below
       variants: {
         "1": { label: "Single — 1 Japanese Mountain Glass",    total: "$12" },
         "2": { label: "Set of 2 — 2 Japanese Mountain Glasses", total: "$20" },
@@ -48,7 +46,6 @@
     spinning: {
       type: "Glass Order",        // same Sheet "type" as the mountain glasses
       change: "spinning-bundle.html",
-      email: false,               // no spinning mailbox yet — see TODO below
       variants: {
         "1": { label: "Spinning Glasses — Single",  total: "$15" },
         "2": { label: "Spinning Glasses — Set of 2", total: "$27" },
@@ -166,30 +163,25 @@
       navigator.sendBeacon(CONFIG.SHEET_URL, new Blob([payload], { type: "text/plain;charset=UTF-8" }));
     } catch (err) { /* best-effort */ }
 
-    // 2) Confirmation email — kit only for now
-    var emailP;
-    if (product.email) {
-      // Kit confirmation via EmailJS — exact template variable names
-      var params = {
-        first_name: o.firstName, last_name: o.lastName,
-        bundle: o.bundle, total: o.total,
-        address: o.address, city: o.city, phone: o.phone,
-        notes: o.notes || "—", email: o.email
-      };
-      emailP = (window.emailjs)
-        ? emailjs.send(CONFIG.EMAILJS_SERVICE_ID, CONFIG.EMAILJS_TEMPLATE_ID, params)
-            .catch(function (err) { console.warn("EmailJS failed:", err); })
-        : Promise.resolve();
-    } else {
-      // TODO (glass confirmation email): the dedicated mailbox / EmailJS template
-      // for the glass products (Japanese Mountain Glasses and Spinning Glasses)
-      // isn't set up yet. Once it is, send the confirmation HERE — mirror the kit's
-      // emailjs.send() above with the glass service/template and glass-appropriate
-      // params (first_name, last_name, bundle, total, address, city, phone, notes,
-      // email; for spinning, `bundle` already includes the design breakdown). For
-      // now, glass orders skip email and still write to the Sheet + redirect.
-      emailP = Promise.resolve();
-    }
+    // 2) Confirmation email — every order uses the same kit EmailJS template
+    // (service_zoho / template_8chohmu). The {{bundle}} variable carries the
+    // product + bundle string, so one template covers the Signature Kit, the
+    // Japanese Mountain Glasses and the Spinning Glasses. For spinning orders we
+    // append the per-glass design breakdown so {{bundle}} shows exactly what was
+    // ordered (e.g. "Spinning Glasses — Set of 2: 1x Fluté, 1x Sculpté"); the
+    // price stays in {{total}}. (The Oak Club sign-up has its own separate
+    // template and runs through club.js — not this flow.)
+    var params = {
+      first_name: o.firstName, last_name: o.lastName,
+      bundle: o.bundle + (productKey === "spinning" ? ": " + designBreakdown() : ""),
+      total: o.total,
+      address: o.address, city: o.city, phone: o.phone,
+      notes: o.notes || "—", email: o.email
+    };
+    var emailP = (window.emailjs)
+      ? emailjs.send(CONFIG.EMAILJS_SERVICE_ID, CONFIG.EMAILJS_TEMPLATE_ID, params)
+          .catch(function (err) { console.warn("EmailJS failed:", err); })
+      : Promise.resolve();
 
     // 3) redirect once the email settles (or after 4s at most).
     // Kit keeps its existing URL (?bundle=N); the glass products add &product=…
