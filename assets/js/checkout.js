@@ -166,11 +166,15 @@
     // 2) Confirmation email — every order uses the same kit EmailJS template
     // (service_zoho / template_8chohmu). The {{bundle}} variable carries the
     // product + bundle string, so one template covers the Signature Kit, the
-    // Japanese Mountain Glasses and the Spinning Glasses. (The Oak Club sign-up
-    // has its own separate template and runs through club.js — not this flow.)
+    // Japanese Mountain Glasses and the Spinning Glasses. For spinning orders we
+    // append the per-glass design breakdown so {{bundle}} shows exactly what was
+    // ordered (e.g. "Spinning Glasses — Set of 2: 1x Fluté, 1x Sculpté"); the
+    // price stays in {{total}}. (The Oak Club sign-up has its own separate
+    // template and runs through club.js — not this flow.)
     var params = {
       first_name: o.firstName, last_name: o.lastName,
-      bundle: o.bundle, total: o.total,
+      bundle: o.bundle + (productKey === "spinning" ? ": " + designBreakdown() : ""),
+      total: o.total,
       address: o.address, city: o.city, phone: o.phone,
       notes: o.notes || "—", email: o.email
     };
