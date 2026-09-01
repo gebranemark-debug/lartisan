@@ -208,7 +208,7 @@
   .foot-socials a{display:inline-flex;color:var(--parchment-dim);margin:0;transition:color .25s}
   .foot-socials a:hover{color:var(--brass-bright)}
   .foot-socials svg{width:22px;height:22px;display:block}
-  .whish-logo{display:inline-block;color:#e8002d;font-family:'Helvetica Neue',Arial,sans-serif;font-weight:700;font-size:21px;letter-spacing:-.02em;line-height:1;margin-bottom:12px;pointer-events:none;user-select:none}
+  /* Whish logo is an <img> in the footer (styled inline) — see index.html */
   .foot-bottom{border-top:1px solid var(--line-soft);padding-top:26px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-family:var(--util);letter-spacing:.1em;font-size:13px;color:var(--parchment-dim);text-transform:uppercase}
 
   .reveal{opacity:0;transform:translateY(28px);transition:opacity .9s ease,transform .9s ease}
