@@ -260,6 +260,12 @@
      every slide fills via cover (no letterboxing), same approach as the glass card. */
   #product .carousel-slide{aspect-ratio:3/2}
   #product .carousel-slide img{object-fit:cover;object-position:center}
+  /* Bundle page — the Signature Kit carousel reuses the same component, 3:2 cover
+     framing and ~400px width as the homepage carousel (matching its media column),
+     centred in place of the old 360° hero image. */
+  .bundle-hero-carousel{max-width:400px;margin:0 auto 42px}
+  .bundle-hero-carousel .carousel-slide{aspect-ratio:3/2}
+  .bundle-hero-carousel .carousel-slide img{object-fit:cover;object-position:center}
   /* Desktop only: narrow the media column so the tile is noticeably smaller.
      (Mobile keeps the single-column layout from the max-width:960px block.) */
   @media(min-width:961px){ #product .product-grid{grid-template-columns:400px 1fr} }
