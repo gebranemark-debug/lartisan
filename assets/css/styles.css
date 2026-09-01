@@ -211,9 +211,11 @@
   .foot-socials a:hover{color:var(--brass-bright)}
   .foot-socials svg{width:22px;height:22px;display:block}
   .foot-bottom{border-top:1px solid var(--line-soft);padding-top:26px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-family:var(--util);letter-spacing:.1em;font-size:13px;color:var(--parchment-dim);text-transform:uppercase}
-  /* Whish logo — centered row at the very bottom of the page (below the © bar) */
-  .whish-bottom{text-align:center;padding:10px 0 14px;background:var(--walnut)}
-  .whish-bottom img{height:26px;opacity:0.75;pointer-events:none;cursor:default;display:inline-block}
+  /* Whish payment badge — centered on its own line above the © row, inside the
+     footer bottom bar. flex-basis:100% gives it a full-width row so the © /
+     tagline spans wrap beneath it (the bar keeps its space-between layout). */
+  .whish-bottom{flex-basis:100%;text-align:center}
+  .whish-bottom img{height:24px;opacity:0.85;display:block;margin:0 auto 8px}
 
   .reveal{opacity:0;transform:translateY(28px);transition:opacity .9s ease,transform .9s ease}
   .reveal.in{opacity:1;transform:none}
