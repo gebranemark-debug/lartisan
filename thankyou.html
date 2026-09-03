@@ -186,7 +186,9 @@
             bundle: bundleLabel,
             total: amount ? "$" + amount : "",
             address: g("address"), city: g("city"), phone: g("phone"),
-            notes: g("notes") || "—", email: g("email")
+            notes: g("notes") || "—", email: g("email"),
+            payment_method: "Whish Money",
+            delivery_note: "We'll confirm delivery timing with you on WhatsApp shortly."
           }).catch(function (e) { if (window.console) console.warn("Whish EmailJS failed:", e); });
         }
       } catch (err) { if (window.console) console.warn("Whish EmailJS error:", err); }
