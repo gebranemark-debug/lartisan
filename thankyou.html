@@ -101,6 +101,15 @@
   // when arriving from the club sign-up (thankyou.html?club=1).
   (function () {
     var params = new URLSearchParams(location.search);
+    // Arrived from a completed Whish payment (successRedirectUrl = thankyou.html?whish=1).
+    // The Whish redirect carries only ?whish=1, so there's no bundle summary to show.
+    if (params.get("whish")) {
+      var wBody = document.getElementById("tyBody");
+      if (wBody) wBody.textContent = "Your Whish payment was received. Your order is confirmed.";
+      var wNote = document.getElementById("tyNote");
+      if (wNote) wNote.style.display = "none";   // Whish orders don't trigger the COD confirmation email
+      return;
+    }
     if (params.get("club")) {
       var set = function (id, txt) { var el = document.getElementById(id); if (el) el.textContent = txt; };
       set("tyEyebrow", "Membership confirmed");

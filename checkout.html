@@ -124,11 +124,13 @@
               <span class="pay-radio"></span>
               <span class="pay-text"><b>Cash on Delivery</b><small>Pay the courier when your order arrives.</small></span>
             </label>
-            <!-- Whish: shown but disabled until the Whish integration is live (see the Whish TODO in assets/js/checkout.js) -->
-            <label class="pay-opt is-disabled" aria-disabled="true">
-              <input type="radio" name="payment" value="whish" disabled>
+            <!-- Whish: real online payment. Selecting this and submitting starts the
+                 Whish flow via /api/whish-create (see the inline script below); the
+                 Cash-on-Delivery flow in assets/js/checkout.js is left untouched. -->
+            <label class="pay-opt">
+              <input type="radio" name="payment" value="whish">
               <span class="pay-radio"></span>
-              <span class="pay-text"><b>Pay with Whish <span class="pay-soon">Coming soon</span></b><small>Online payment — available shortly.</small></span>
+              <span class="pay-text"><b>Pay with Whish</b><small>Secure online payment — you'll be redirected to Whish to complete it.</small></span>
             </label>
           </div>
         </div>
@@ -136,6 +138,8 @@
         <button type="submit" class="btn btn-gold checkout-submit" id="placeOrder">
           Place an order
         </button>
+        <p id="whishError" class="checkout-error" role="alert" hidden
+           style="margin-top:14px;padding:12px 14px;border:1px solid rgba(201,80,60,.5);background:rgba(201,80,60,.12);color:#e7cabe;border-radius:4px;font-family:var(--util);letter-spacing:.03em;font-size:14px;line-height:1.45"></p>
         <p class="privacy">Your information is used only to process and deliver your order.</p>
       </form>
 
@@ -181,5 +185,74 @@
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script src="assets/js/store.js"></script>
 <script src="assets/js/checkout.js"></script>
+<script>
+  // ===== Whish Pay (additive — the COD flow in checkout.js is NOT touched) =====
+  // When the customer picks "Pay with Whish" and submits, we catch the form's
+  // submit event in the CAPTURE phase on document — which runs before the form's
+  // own submit listener (registered by checkout.js). For Whish we stop that
+  // listener from firing and start the Whish flow instead; for Cash on Delivery
+  // we do nothing and let checkout.js handle the order exactly as before.
+  (function () {
+    "use strict";
+    var form = document.getElementById("orderForm");
+    if (!form) return;
+
+    var btn = document.getElementById("placeOrder");
+    var errEl = document.getElementById("whishError");
+
+    function val(id) { var el = document.getElementById(id); return el ? el.value.trim() : ""; }
+    function isWhish() {
+      var r = document.querySelector('input[name="payment"]:checked');
+      return !!r && r.value === "whish";
+    }
+    function showError() {
+      if (btn) { btn.disabled = false; btn.classList.remove("is-loading"); btn.textContent = "Place an order"; }
+      if (errEl) {
+        errEl.textContent = "Payment could not be initiated. Please try again or choose Cash on Delivery.";
+        errEl.hidden = false;
+      }
+    }
+
+    // Capture phase + stopPropagation keeps checkout.js's (bubble-phase) submit
+    // handler from running when Whish is the chosen method.
+    document.addEventListener("submit", function (e) {
+      if (e.target !== form || !isWhish()) return;   // COD → let checkout.js handle it
+      e.preventDefault();
+      e.stopPropagation();
+      startWhish();
+    }, true);
+
+    function startWhish() {
+      if (errEl) { errEl.hidden = true; errEl.textContent = ""; }
+      if (!form.reportValidity()) return;            // same native validation as COD
+
+      // Amount + description come straight from the order summary that
+      // checkout.js already rendered — no dependency on its internals.
+      var totalText = (document.getElementById("summaryTotal") || {}).textContent || "";
+      var amount = totalText.replace(/[^0-9.]/g, "");            // "$55" -> "55"
+      var bundleLabel = ((document.getElementById("summaryBundle") || {}).textContent || "").trim();
+      var name = (val("firstName") + " " + val("lastName")).trim();
+      var invoice = "L'Artisan Alcoolique order"
+        + (bundleLabel ? " — " + bundleLabel : "")
+        + (name ? " — " + name : "");
+
+      if (!amount) { showError(); return; }
+
+      if (btn) { btn.disabled = true; btn.classList.add("is-loading"); btn.textContent = "Redirecting to Whish…"; }
+
+      fetch("/api/whish-create", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ amount: amount, invoice: invoice })
+      })
+        .then(function (r) { return r.json(); })
+        .then(function (data) {
+          if (data && data.ok && data.collectUrl) { window.location.href = data.collectUrl; }
+          else { showError(); }
+        })
+        .catch(function () { showError(); });
+    }
+  })();
+</script>
 </body>
 </html>
