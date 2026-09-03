@@ -96,18 +96,32 @@
 </a>
 
 <script src="assets/js/store.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script>
   // Show which bundle was ordered, or switch to the Oak Club confirmation
   // when arriving from the club sign-up (thankyou.html?club=1).
   (function () {
     var params = new URLSearchParams(location.search);
-    // Arrived from a completed Whish payment (successRedirectUrl = thankyou.html?whish=1).
-    // The Whish redirect carries only ?whish=1, so there's no bundle summary to show.
+    // Arrived from a completed Whish payment. api/whish-create.js builds the
+    // success redirect with the order fields as query params, so this is where a
+    // Whish order is both confirmed on screen AND recorded (Sheet + email) —
+    // the Whish flow bypasses checkout.js, which handles that for COD.
     if (params.get("whish")) {
+      var fn = (params.get("firstName") || "").trim();
+      var ln = (params.get("lastName") || "").trim();
+      var whName = (fn + " " + ln).trim();
+      var whBundle = (params.get("bundle") || "").trim();
+      var whSummary = "";
+      if (whBundle && whName) whSummary = " (" + whBundle + " · " + whName + ")";
+      else if (whBundle) whSummary = " (" + whBundle + ")";
+      else if (whName) whSummary = " (" + whName + ")";
+
       var wBody = document.getElementById("tyBody");
-      if (wBody) wBody.textContent = "Your Whish payment was received. Your order is confirmed.";
+      if (wBody) wBody.textContent = "Your Whish payment was received. Your order is confirmed." + whSummary;
       var wNote = document.getElementById("tyNote");
-      if (wNote) wNote.style.display = "none";   // Whish orders don't trigger the COD confirmation email
+      if (wNote) wNote.style.display = "none";   // drop the "pay cash" / "email on its way" line for a paid order
+
+      recordWhishOrder(params);                  // fire-and-forget Sheet write + confirmation email
       return;
     }
     if (params.get("club")) {
@@ -130,6 +144,53 @@
     var BUNDLES = { "1": "Buy 1", "2": "Buy 2", "3": "Buy 3" };
     var k = params.get("bundle");
     if (BUNDLES[k]) document.getElementById("tyBundle").textContent = " (" + BUNDLES[k] + ")";
+
+    // ---- Whish order recording — mirrors the COD Sheet write + confirmation
+    // email in checkout.js, but runs here because the Whish payment flow bypasses
+    // checkout.js. Fire-and-forget: any failure is logged, never shown to the
+    // customer (the payment already succeeded). Same Sheet URL/payload shape and
+    // same EmailJS service/template/key + variables as the kit COD flow.
+    function recordWhishOrder(qs) {
+      // Record once per order per tab, so a refresh can't duplicate the Sheet row
+      // or the email. Fails open if sessionStorage is unavailable.
+      var guardKey = "whish_recorded:" + location.search;
+      try { if (sessionStorage.getItem(guardKey) === "1") return; } catch (e) {}
+      try { sessionStorage.setItem(guardKey, "1"); } catch (e) {}
+
+      var SHEET_URL = "https://script.google.com/macros/s/AKfycbyJ1Ybnf2ul-Vm9Ywhioa1Gs6Uf8NfXffqi59SO1TJsEINfbCzi3EiU0PL5k2u2J86d/exec";
+      var SHEET_SECRET = "lartisan2026xyz";
+      var g = function (key) { return qs.get(key) || ""; };
+      var amount = g("amount");
+      var bundleLabel = g("bundle");
+
+      // 1) Google Sheet — same columns/format as COD; PaymentMethod = "Whish".
+      try {
+        var sheetPayload = JSON.stringify({
+          secret: SHEET_SECRET,
+          type: g("type") || "Kit Order",
+          firstName: g("firstName"), lastName: g("lastName"), phone: g("phone"),
+          city: g("city"), address: g("address"), email: g("email"),
+          bundle: bundleLabel + (amount ? " ($" + amount + ")" : ""),
+          notes: g("notes"),
+          paymentMethod: "Whish"
+        });
+        navigator.sendBeacon(SHEET_URL, new Blob([sheetPayload], { type: "text/plain;charset=UTF-8" }));
+      } catch (err) { if (window.console) console.warn("Whish Sheet write failed:", err); }
+
+      // 2) EmailJS confirmation — same service/template/public key + variables as the kit email.
+      try {
+        if (window.emailjs) {
+          emailjs.init({ publicKey: "vUwNauDCuMfhcl5a8" });
+          emailjs.send("service_zoho", "template_8chohmu", {
+            first_name: g("firstName"), last_name: g("lastName"),
+            bundle: bundleLabel,
+            total: amount ? "$" + amount : "",
+            address: g("address"), city: g("city"), phone: g("phone"),
+            notes: g("notes") || "—", email: g("email")
+          }).catch(function (e) { if (window.console) console.warn("Whish EmailJS failed:", e); });
+        }
+      } catch (err) { if (window.console) console.warn("Whish EmailJS error:", err); }
+    }
   })();
 </script>
 </body>

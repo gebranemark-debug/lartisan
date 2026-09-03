@@ -36,6 +36,25 @@ module.exports = async function handler(req, res) {
     Date.now().toString() +
     Math.floor(Math.random() * 10000).toString().padStart(4, "0");
 
+  // The customer's order details only exist at checkout time, but the Google
+  // Sheet write + confirmation email must happen AFTER the payment succeeds. So
+  // we thread the order fields through the success redirect URL as query params;
+  // thankyou.html reads them back and records the order there. (These fields ride
+  // only on the redirect target — they are NOT part of the Whish payment payload.)
+  var successParams = new URLSearchParams({
+    whish: "1",
+    firstName: body.firstName || "",
+    lastName: body.lastName || "",
+    phone: body.phone || "",
+    city: body.city || "",
+    address: body.address || "",
+    email: body.email || "",
+    bundle: body.bundle || "",
+    notes: body.notes || "",
+    type: body.type || "",
+    amount: String(amount || "")
+  });
+
   var payload = {
     amount: String(amount),
     currency: "USD",
@@ -43,7 +62,7 @@ module.exports = async function handler(req, res) {
     externalId: externalId,
     successCallbackUrl: SITE + "/api/whish-success?externalId=" + externalId,
     failureCallbackUrl: SITE + "/api/whish-failure?externalId=" + externalId,
-    successRedirectUrl: SITE + "/thankyou.html?whish=1",
+    successRedirectUrl: SITE + "/thankyou.html?" + successParams.toString(),
     failureRedirectUrl: SITE + "/checkout.html?whish=failed"
   };
 

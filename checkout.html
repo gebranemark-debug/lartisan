@@ -236,14 +236,36 @@
         + (bundleLabel ? " — " + bundleLabel : "")
         + (name ? " — " + name : "");
 
+      // Order type, derived from ?product exactly as checkout.js does
+      // (kit -> "Kit Order", glass/spinning -> "Glass Order"). bundle.html links
+      // here with no ?product, so kit orders record as "Kit Order".
+      var TYPE_BY_PRODUCT = { kit: "Kit Order", glass: "Glass Order", spinning: "Glass Order" };
+      var productKey = new URLSearchParams(location.search).get("product");
+      var type = TYPE_BY_PRODUCT[productKey] || "Kit Order";
+
       if (!amount) { showError(); return; }
 
       if (btn) { btn.disabled = true; btn.classList.add("is-loading"); btn.textContent = "Redirecting to Whish…"; }
 
+      // The order fields ride along so whish-create.js can thread them into the
+      // success redirect URL; thankyou.html records the order (Sheet + email)
+      // once the payment completes. The COD flow in checkout.js is untouched.
       fetch("/api/whish-create", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ amount: amount, invoice: invoice })
+        body: JSON.stringify({
+          amount: amount,
+          invoice: invoice,
+          firstName: val("firstName"),
+          lastName: val("lastName"),
+          phone: val("phone"),
+          city: val("city"),
+          address: val("address"),
+          email: val("email"),
+          bundle: bundleLabel,
+          notes: val("notes"),
+          type: type
+        })
       })
         .then(function (r) { return r.json(); })
         .then(function (data) {
