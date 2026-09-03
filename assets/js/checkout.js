@@ -176,7 +176,9 @@
       bundle: o.bundle + (productKey === "spinning" ? ": " + designBreakdown() : ""),
       total: o.total,
       address: o.address, city: o.city, phone: o.phone,
-      notes: o.notes || "—", email: o.email
+      notes: o.notes || "—", email: o.email,
+      payment_method: "Cash on Delivery",
+      delivery_note: "We'll confirm delivery timing with you on WhatsApp shortly. You pay cash when it arrives."
     };
     var emailP = (window.emailjs)
       ? emailjs.send(CONFIG.EMAILJS_SERVICE_ID, CONFIG.EMAILJS_TEMPLATE_ID, params)
