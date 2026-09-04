@@ -341,11 +341,14 @@
     .craft-photo{max-width:180px;margin:0;padding:6px}
     .craft-copy h2{font-size:25px;margin-bottom:14px;line-height:1.2}
     .craft-copy p{font-size:16px;line-height:1.6}
-    /* Two glass cards stay side by side on phones — shrink the gap + padding so
-       both fit. Smaller product name + specs so the photo dominates the card
-       (the 3:2 image frame + object-fit:cover are unchanged; the text below
-       just takes up less room). Button stays full-width and tappable. */
-    .glass-collection{gap:14px}
+    /* Phones: two cards per row — Mountain Glasses + Spinning Glasses on row 1 —
+       with the third card (Wood Chips) centered on row 2 at the same width as a
+       card above. Shrink the gap + padding and product name/specs so the photo
+       dominates the card. Button stays full-width and tappable. */
+    .glass-collection{grid-template-columns:repeat(2,1fr);gap:14px}
+    /* Third card sits alone on row 2: span both columns, then cap the width back
+       to one column and center it so it matches the cards above. */
+    .glass-collection .glass-card:nth-child(3){grid-column:1 / -1;max-width:calc((100% - 14px) / 2);margin:0 auto}
     .glass-card-body{padding:9px 8px 13px}
     .glass-card-body h3{font-size:13px;margin-bottom:4px;line-height:1.1}
     .glass-card-body .product-cod{font-size:8px;letter-spacing:.03em;margin-bottom:9px;line-height:1.35}
