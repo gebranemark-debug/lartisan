@@ -151,11 +151,14 @@
     // customer (the payment already succeeded). Same Sheet URL/payload shape and
     // same EmailJS service/template/key + variables as the kit COD flow.
     function recordWhishOrder(qs) {
-      // Record once per order per tab, so a refresh can't duplicate the Sheet row
-      // or the email. Fails open if sessionStorage is unavailable.
-      var guardKey = "whish_recorded:" + location.search;
-      try { if (sessionStorage.getItem(guardKey) === "1") return; } catch (e) {}
-      try { sessionStorage.setItem(guardKey, "1"); } catch (e) {}
+      // Record once per payment attempt, keyed on the Whish externalId (threaded
+      // through the success redirect URL by api/whish-create.js), so a refresh
+      // can't duplicate the Sheet row or the email while distinct orders each
+      // record. Fails open if sessionStorage is unavailable.
+      var extId = qs.get("externalId") || "";
+      var dedupKey = "whish_recorded_" + extId;
+      try { if (sessionStorage.getItem(dedupKey) === "1") return; } catch (e) {}
+      try { sessionStorage.setItem(dedupKey, "1"); } catch (e) {}
 
       var SHEET_URL = "https://script.google.com/macros/s/AKfycbyJ1Ybnf2ul-Vm9Ywhioa1Gs6Uf8NfXffqi59SO1TJsEINfbCzi3EiU0PL5k2u2J86d/exec";
       var SHEET_SECRET = "lartisan2026xyz";
