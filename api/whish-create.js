@@ -43,6 +43,7 @@ module.exports = async function handler(req, res) {
   // only on the redirect target — they are NOT part of the Whish payment payload.)
   var successParams = new URLSearchParams({
     whish: "1",
+    externalId: externalId,
     firstName: body.firstName || "",
     lastName: body.lastName || "",
     phone: body.phone || "",
