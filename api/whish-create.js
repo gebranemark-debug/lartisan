@@ -36,24 +36,14 @@ module.exports = async function handler(req, res) {
     Date.now().toString() +
     Math.floor(Math.random() * 10000).toString().padStart(4, "0");
 
-  // The customer's order details only exist at checkout time, but the Google
-  // Sheet write + confirmation email must happen AFTER the payment succeeds. So
-  // we thread the order fields through the success redirect URL as query params;
-  // thankyou.html reads them back and records the order there. (These fields ride
-  // only on the redirect target — they are NOT part of the Whish payment payload.)
+  // Keep the success redirect URL SHORT. Whish rejects an over-long
+  // successRedirectUrl with itel.unknown_error, so we pass only whish=1 and the
+  // externalId. checkout.html stashes the order fields in sessionStorage keyed by
+  // externalId before redirecting; thankyou.html reads them back to record the
+  // order. (No order fields ride on the redirect URL or the Whish payload.)
   var successParams = new URLSearchParams({
     whish: "1",
-    externalId: externalId,
-    firstName: body.firstName || "",
-    lastName: body.lastName || "",
-    phone: body.phone || "",
-    city: body.city || "",
-    address: body.address || "",
-    email: body.email || "",
-    bundle: body.bundle || "",
-    notes: body.notes || "",
-    type: body.type || "",
-    amount: String(amount || "")
+    externalId: externalId
   });
 
   var payload = {

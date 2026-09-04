@@ -162,7 +162,13 @@
 
       var SHEET_URL = "https://script.google.com/macros/s/AKfycbyJ1Ybnf2ul-Vm9Ywhioa1Gs6Uf8NfXffqi59SO1TJsEINfbCzi3EiU0PL5k2u2J86d/exec";
       var SHEET_SECRET = "lartisan2026xyz";
-      var g = function (key) { return qs.get(key) || ""; };
+      // Order fields are bridged via sessionStorage: checkout.html stored them
+      // under whish_order_<externalId> before redirecting to Whish, because the
+      // success redirect URL now carries only whish=1 & externalId (a long URL
+      // made Whish return itel.unknown_error). Read them back here.
+      var order = {};
+      try { order = JSON.parse(sessionStorage.getItem("whish_order_" + extId) || "{}"); } catch (e) { order = {}; }
+      var g = function (key) { return order[key] || ""; };
       var amount = g("amount");
       var bundleLabel = g("bundle");
 
