@@ -201,9 +201,19 @@
     var errEl = document.getElementById("whishError");
 
     function val(id) { var el = document.getElementById(id); return el ? el.value.trim() : ""; }
+    // Detect whether "Pay with Whish" is the chosen method. Selection is tracked
+    // two ways in the existing markup/JS: (1) the hidden radio
+    // input[name="payment"] becomes :checked (value "cod" | "whish"), and
+    // (2) checkout.js adds the class "selected" to the chosen .pay-opt label.
+    // The checked radio is authoritative; if for any reason no radio reports
+    // :checked, fall back to the visually-selected option. (The radio name is
+    // "payment", not "paymentMethod"; the "selected" class is on .pay-opt, not
+    // .pay-radio.)
     function isWhish() {
-      var r = document.querySelector('input[name="payment"]:checked');
-      return !!r && r.value === "whish";
+      var checked = document.querySelector('input[name="payment"]:checked');
+      if (checked) return checked.value === "whish";
+      var selected = document.querySelector('.pay-opt.selected input[name="payment"]');
+      return !!selected && selected.value === "whish";
     }
     function showError() {
       if (btn) { btn.disabled = false; btn.classList.remove("is-loading"); btn.textContent = "Place an order"; }
