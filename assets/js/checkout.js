@@ -49,7 +49,8 @@
       variants: {
         "1": { label: "Spinning Glasses — Single",  total: "$15" },
         "2": { label: "Spinning Glasses — Set of 2", total: "$27" },
-        "3": { label: "Spinning Glasses — Set of 3", total: "$39" }
+        "3": { label: "Spinning Glasses — Set of 3", total: "$39" },
+        "4": { label: "Spinning Glasses — Set of 4", total: "$49" }
       }
     }
   };
@@ -63,12 +64,12 @@
   // Spinning glasses carry a per-glass design breakdown via ?d= (comma-separated,
   // URL-encoded, one entry per glass). Clamp to the quantity; default any missing
   // pick to Fluté so a valid, complete selection always exists.
-  var DESIGN_ORDER = ["Fluté", "Majesté", "Sculpté"];
+  var DESIGN_ORDER = ["Fluté", "Majesté", "Sculpté", "Ciselé"];
   var designs = [];
   if (productKey === "spinning") {
     var qty = +bundleKey || 1;
     var raw = (qp("d") || "").split(",").map(function (s) { return s.trim(); });
-    var validDesign = { "Fluté": 1, "Majesté": 1, "Sculpté": 1 };
+    var validDesign = { "Fluté": 1, "Majesté": 1, "Sculpté": 1, "Ciselé": 1 };
     designs = raw.filter(function (d) { return validDesign[d]; }).slice(0, qty);
     while (designs.length < qty) designs.push("Fluté");
   }
