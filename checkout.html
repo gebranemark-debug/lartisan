@@ -279,7 +279,27 @@
       })
         .then(function (r) { return r.json(); })
         .then(function (data) {
-          if (data && data.ok && data.collectUrl) { window.location.href = data.collectUrl; }
+          if (data && data.ok && data.collectUrl) {
+            // Bridge the order fields to thankyou.html via sessionStorage, keyed
+            // by externalId. The success redirect URL now carries only
+            // whish=1 & externalId (a long redirect URL made Whish return
+            // itel.unknown_error). Best-effort — never block the payment redirect.
+            try {
+              sessionStorage.setItem("whish_order_" + data.externalId, JSON.stringify({
+                firstName: val("firstName"),
+                lastName: val("lastName"),
+                phone: val("phone"),
+                city: val("city"),
+                address: val("address"),
+                email: val("email"),
+                bundle: bundleLabel,
+                notes: val("notes"),
+                type: type,
+                amount: amount
+              }));
+            } catch (e) { /* best-effort; still redirect to complete the payment */ }
+            window.location.href = data.collectUrl;
+          }
           else { showError(); }
         })
         .catch(function () { showError(); });
