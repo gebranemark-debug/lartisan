@@ -241,6 +241,10 @@
       var totalText = (document.getElementById("summaryTotal") || {}).textContent || "";
       var amount = totalText.replace(/[^0-9.]/g, "");            // "$55" -> "55"
       var bundleLabel = ((document.getElementById("summaryBundle") || {}).textContent || "").trim();
+      // Per-glass design breakdown (spinning only; empty for kit/glass). checkout.js
+      // renders it into #summaryDesigns; carry it through so the recorded order and
+      // the confirmation email show exactly what was ordered, matching the COD flow.
+      var designs = ((document.getElementById("summaryDesigns") || {}).textContent || "").trim();
       var name = (val("firstName") + " " + val("lastName")).trim();
       var invoice = "L'Artisan Alcoolique order"
         + (bundleLabel ? " — " + bundleLabel : "")
@@ -293,6 +297,7 @@
                 address: val("address"),
                 email: val("email"),
                 bundle: bundleLabel,
+                designs: designs,
                 notes: val("notes"),
                 type: type,
                 amount: amount
