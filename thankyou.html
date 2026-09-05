@@ -171,6 +171,7 @@
       var g = function (key) { return order[key] || ""; };
       var amount = g("amount");
       var bundleLabel = g("bundle");
+      var designs = g("designs");   // per-glass breakdown (spinning only; "" otherwise)
 
       // 1) Google Sheet — same columns/format as COD; PaymentMethod = "Whish".
       try {
@@ -179,7 +180,7 @@
           type: g("type") || "Kit Order",
           firstName: g("firstName"), lastName: g("lastName"), phone: g("phone"),
           city: g("city"), address: g("address"), email: g("email"),
-          bundle: bundleLabel + (amount ? " ($" + amount + ")" : ""),
+          bundle: bundleLabel + (amount ? " ($" + amount + ")" : "") + (designs ? ": " + designs : ""),
           notes: g("notes"),
           paymentMethod: "Whish"
         });
@@ -192,7 +193,7 @@
           emailjs.init({ publicKey: "vUwNauDCuMfhcl5a8" });
           emailjs.send("service_zoho", "template_8chohmu", {
             first_name: g("firstName"), last_name: g("lastName"),
-            bundle: bundleLabel,
+            bundle: bundleLabel + (designs ? ": " + designs : ""),
             total: amount ? "$" + amount : "",
             address: g("address"), city: g("city"), phone: g("phone"),
             notes: g("notes") || "—", email: g("email"),
