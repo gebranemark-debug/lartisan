@@ -132,6 +132,14 @@
       return;
     }
     var prod = params.get("product");
+    if (prod === "woodchips") {
+      var WC_SETS = { "4": "Set of 4", "6": "Set of 6" };
+      var wk = params.get("bundle");
+      if (WC_SETS[wk]) document.getElementById("tyBundle").textContent = " (" + WC_SETS[wk] + " · Wood Chips)";
+      // Confirmation-email note stays visible: wood-chips orders send the same
+      // email as the kit (see checkout.js).
+      return;
+    }
     if (prod === "glass" || prod === "spinning") {
       var SETS = { "1": "Single", "2": "Set of 2", "3": "Set of 3" };
       var name = (prod === "spinning") ? "Spinning Glasses" : "Japanese Mountain Glasses";
