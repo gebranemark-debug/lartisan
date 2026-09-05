@@ -16,6 +16,11 @@
 /* Intro line that sits above the flavour explorer (was in the page-head; keeps
    the same centred, parchment treatment now that it lives lower on the page). */
 .wc-intro{max-width:620px;margin:0 auto 40px;text-align:center;font-size:20px;color:var(--parchment)}
+/* Tighten the space between the purchase block (carousel + pricing + Buy It Now)
+   and the flavour intro below it, so the "Every kit ships…" line sits close to
+   the button instead of across a full, empty section gap. */
+.wc-buy-band{padding-bottom:8px}
+.wc-flav-band{padding-top:30px}
 
 /* ===== Our Catalog — flavour grid ===== */
 .cat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
