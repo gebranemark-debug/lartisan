@@ -51,11 +51,36 @@
   <section class="page-head">
     <span class="eyebrow">Bundle &amp; Save</span>
     <h1>Six woods, six moods</h1>
-    <p>Every L'Artisan kit ships with all six flavours. Here's what each one brings to the glass — and the pours it was made for.</p>
+    <p class="page-sub">Sun-dried and hand-sorted. Six woods, sourced for the smoke they carry.</p>
+  </section>
+
+  <!-- Hero carousel: the wood chips (same tile/format as the spinning-glasses
+       hero — swipe + arrows + dots, powered by main.js). -->
+  <section class="band">
+    <div class="wrap bundle-wrap">
+      <div class="bundle-carousel-hero">
+        <div class="carousel" data-carousel>
+          <div class="carousel-track" data-carousel-track>
+            <div class="carousel-slide"><img src="assets/img/woodchips-hero-1.jpg" alt="L'Artisan wood chips — sun-dried and hand-sorted" loading="eager"></div>
+            <div class="carousel-slide"><img src="assets/img/woodchips-hero-2.jpg" alt="The six L'Artisan smoking woods, sorted by hand" loading="lazy"></div>
+          </div>
+          <button class="carousel-arrow prev" aria-label="Previous image">&#8249;</button>
+          <button class="carousel-arrow next" aria-label="Next image">&#8250;</button>
+          <div class="carousel-dots" data-carousel-dots></div>
+        </div>
+      </div>
+
+      <!-- ===== PLACEHOLDER (Prompt B) =====
+           Pricing cards + "Buy it now" button go here, between the carousel
+           above and the flavour explorer below. -->
+
+    </div>
   </section>
 
   <section class="band">
     <div class="wrap">
+      <p class="wc-intro">Every L'Artisan kit ships with all six flavours. Here's what each one brings to the glass — and the pours it was made for.</p>
+
       <!-- Interactive flavour guide: pick a wood -> see its details -->
       <div class="flav reveal">
         <div class="flav-tabs" role="tablist" aria-label="Wood flavours">
@@ -165,6 +190,7 @@
 </a>
 
 <script src="assets/js/store.js"></script>
+<script src="assets/js/main.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script src="assets/js/club.js"></script>
 </body>

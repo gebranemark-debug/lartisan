@@ -9,6 +9,13 @@
 .page-head h1{font-size:clamp(34px,5vw,58px);color:var(--brass-bright);margin-bottom:18px;letter-spacing:.02em}
 .page-head p{max-width:620px;margin:0 auto;font-size:20px;color:var(--parchment)}
 .page-head .page-head-specs{margin-top:18px;margin-bottom:0}
+/* Italic subtitle under a page-head heading (same treatment as .story-sub). */
+.page-head .page-sub{font-family:var(--body);font-style:italic;font-size:clamp(17px,2.2vw,22px);color:var(--parchment-dim);letter-spacing:.01em}
+
+/* ===== Wood Chips page ===== */
+/* Intro line that sits above the flavour explorer (was in the page-head; keeps
+   the same centred, parchment treatment now that it lives lower on the page). */
+.wc-intro{max-width:620px;margin:0 auto 40px;text-align:center;font-size:20px;color:var(--parchment)}
 
 /* ===== Our Catalog — flavour grid ===== */
 .cat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
@@ -122,6 +129,23 @@
   .flav-panel .pair{font-size:11px}
   .flav-panel .note{font-size:15px;margin-bottom:16px}
   .flav-panel .best{font-size:12px}
+
+  /* Oak Club (wood-chips) — compact the membership widget on phones so it isn't
+     oversized. Card padding, copy and list all scale down; desktop unchanged.
+     h3 + last note carry inline sizes, so override those with !important. */
+  .club{padding:44px 0}
+  .club-inner{gap:26px}
+  .club-copy h2{font-size:26px;margin-bottom:14px}
+  .club-copy p{font-size:16px;margin-bottom:14px}
+  .club-card{padding:24px 22px}
+  .club-card .ribbon{font-size:11px;margin-bottom:14px;letter-spacing:.2em}
+  .club-card h3{font-size:20px!important;margin-bottom:4px!important}
+  .club-card .price{font-size:18px;margin:6px 0 16px}
+  .club-card .price small{font-size:14px}
+  .club-card ul{margin:16px 0}
+  .club-card li{padding:10px 0;font-size:15px;gap:11px}
+  .club-card li svg{width:16px;height:16px}
+  .club-card p{font-size:13px!important}
 }
 
 /* ===== Checkout / order form ===== */
