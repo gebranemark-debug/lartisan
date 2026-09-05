@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Wood Chips — L'Artisan Alcoolique</title>
-<meta name="description" content="The six wood flavours that ship with every L'Artisan kit — Oak, Cherry, Pecan, Apple, Peach and Pear — plus the Oak Club monthly membership.">
+<title>Our Story — L'Artisan Alcoolique</title>
+<meta name="description" content="The story behind L'Artisan Alcoolique — a man, a workbench, and the belief that the best part of whiskey is the moment around it.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Barlow+Condensed:wght@400;500;600&display=swap" rel="stylesheet">
@@ -33,7 +33,7 @@
     </a>
     <nav class="nav-links" aria-label="Primary">
       <a href="bundle.html">The Kit</a>
-      <a href="our-story.html">Our Story</a>
+      <a href="our-story.html" aria-current="page">Our Story</a>
     </nav>
     <a class="btn btn-gold nav-cta" href="bundle.html">Order</a>
     <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
@@ -48,86 +48,37 @@
 </div>
 
 <main>
-  <section class="page-head">
-    <span class="eyebrow">Our Catalog</span>
-    <h1>Six woods, six moods</h1>
-    <p>Every L'Artisan kit ships with all six flavours. Here's what each one brings to the glass — and the pours it was made for.</p>
+  <!-- Full-width hero image (no text overlay) -->
+  <section class="story-hero">
+    <img src="assets/img/our-story-collage.jpg" alt="L'Artisan Alcoolique — the craft behind the ritual" loading="eager">
   </section>
 
+  <!-- OUR STORY -->
   <section class="band">
     <div class="wrap">
-      <!-- Interactive flavour guide: pick a wood -> see its details -->
-      <div class="flav reveal">
-        <div class="flav-tabs" role="tablist" aria-label="Wood flavours">
-          <button class="flav-tab active" data-f="oak" role="tab" aria-selected="true">Oak</button>
-          <button class="flav-tab" data-f="cherry" role="tab" aria-selected="false">Cherry</button>
-          <button class="flav-tab" data-f="pecan" role="tab" aria-selected="false">Pecan</button>
-          <button class="flav-tab" data-f="apple" role="tab" aria-selected="false">Apple</button>
-          <button class="flav-tab" data-f="peach" role="tab" aria-selected="false">Peach</button>
-          <button class="flav-tab" data-f="pear" role="tab" aria-selected="false">Pear</button>
-        </div>
-        <div class="flav-panel" id="flavPanel" role="tabpanel" aria-live="polite"></div>
-      </div>
-
-      <div class="cat-cta">
-        <a class="btn btn-gold" href="bundle.html">Order the kit</a>
+      <div class="story-intro reveal">
+        <span class="eyebrow">Our Story</span>
+        <h2>THE MAN WHO NEVER RUSHED A POUR.</h2>
+        <p>Before L'Artisan Alcoolique became a brand, there was simply a man, a workbench, and a glass of whiskey. He believed that a good whiskey deserved more than to be poured and forgotten. He studied the wood. He cared about the glass. He noticed the aroma before the first sip. And he understood something simple: the best part of whiskey isn't always the whiskey. It's the moment around it. That idea became L'Artisan Alcoolique. Today, we create and curate pieces designed to make that moment feel different — more personal, more memorable, more yours. Because whiskey isn't just something you drink. It's something you experience.</p>
+        <p class="story-brand">L'ARTISAN ALCOOLIQUE</p>
+        <p class="story-tagline">LE WHISKY, AUTREMENT.</p>
       </div>
     </div>
   </section>
 
-  <!-- Oak Club (moved here from the home page) -->
-  <section class="band club" id="club">
-    <div class="wrap club-inner">
-      <div class="club-copy reveal">
-        <span class="eyebrow">Membership</span>
-        <h2>The Oak Club</h2>
-        <p>A ritual doesn't end with the first box. Every month, a new wood flavour arrives at your door — a fresh reason to pour something worth smoking.</p>
-        <p>No cards, no lock-in. We message you before each delivery; you confirm, and pay when it arrives. Cancel any month, no questions.</p>
-        <button type="button" class="btn btn-gold" id="joinClub">Join the Oak Club</button>
-      </div>
-      <div class="club-card reveal">
-        <div class="ribbon">◇ Monthly · Delivered</div>
-        <h3 style="font-size:26px;margin-bottom:6px">A new flavour, every month</h3>
-        <div class="price">from $12 <small>/ month · cash on delivery</small></div>
-        <ul>
-          <li><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg> One curated wood flavour, monthly</li>
-          <li><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg> A pairing card for the spirit to match</li>
-          <li><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg> Member-only seasonal editions</li>
-          <li><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg> Pause or cancel any time</li>
-        </ul>
-        <p style="font-size:15px;color:var(--parchment-dim)">Confirmed with you before each delivery. You're never charged without a yes.</p>
+  <!-- CRAFTSMAN STORY -->
+  <section class="band craft" id="story">
+    <div class="wrap craft-inner reveal">
+      <div class="craft-photo"><img src="assets/img/craft-emblem.jpg" alt="The L'Artisan Alcoolique emblem — the craftsman at his barrel" loading="lazy"></div>
+      <div class="craft-copy">
+        <span class="eyebrow">The name</span>
+        <h2>To the craftsman,<br>the work is never rushed.</h2>
+        <p>L'Artisan is the maker who sits with his craft long after the room has gone quiet — patient, precise, a glass within reach. We built this kit in that spirit: <em>not a gadget, but an instrument.</em> Every case engraved, every torch weighted, every flavour chosen — because the difference between a drink and a ritual is care.</p>
+        <div class="signoff">— L'Artisan Alcoolique, Beirut</div>
       </div>
     </div>
   </section>
 </main>
-
-<!-- Oak Club sign-up modal (on-site — replaces the old WhatsApp join) -->
-<div class="club-modal" id="clubModal" aria-hidden="true">
-  <div class="club-backdrop" data-close></div>
-  <div class="club-dialog" role="dialog" aria-modal="true" aria-labelledby="clubModalTitle">
-    <button class="club-close" type="button" aria-label="Close" data-close>&times;</button>
-    <span class="eyebrow">Membership</span>
-    <h3 id="clubModalTitle">Join the Oak Club</h3>
-    <p class="club-modal-lede">Leave your details and we'll set up your membership. We confirm each month before delivery — no card, cancel any time.</p>
-    <form id="clubForm" class="checkout-form club-form" novalidate>
-      <div class="field">
-        <label for="clubName">Name *</label>
-        <input id="clubName" name="name" type="text" required autocomplete="name">
-      </div>
-      <div class="field">
-        <label for="clubPhone">Phone number *</label>
-        <input id="clubPhone" name="phone" type="tel" required inputmode="tel" autocomplete="tel"
-               minlength="6" title="Enter a valid phone number">
-      </div>
-      <div class="field">
-        <label for="clubEmail">Email *</label>
-        <input id="clubEmail" name="email" type="email" required autocomplete="email">
-      </div>
-      <button type="submit" class="btn btn-gold checkout-submit" id="clubSubmit">Join the Oak Club</button>
-      <p class="privacy">Your details are used only to set up and confirm your Oak Club membership.</p>
-    </form>
-  </div>
-</div>
 
 <footer>
   <div class="wrap">
@@ -165,7 +116,6 @@
 </a>
 
 <script src="assets/js/store.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-<script src="assets/js/club.js"></script>
+<script src="assets/js/main.js"></script>
 </body>
 </html>

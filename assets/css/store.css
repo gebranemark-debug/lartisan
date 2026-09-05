@@ -169,6 +169,17 @@
 }
 
 /* ===== Our Story page ===== */
+/* Full-width hero image below the fixed header — dark, moody, no text overlay. */
+.story-hero{position:relative;margin-top:150px;min-height:50vh;max-height:55vh;overflow:hidden;background:var(--ink);border-bottom:1px solid var(--line-soft)}
+.story-hero img{width:100%;height:55vh;object-fit:contain;object-position:center;display:block}
+.story-hero::after{content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(14,11,8,.6),transparent 24%,transparent 66%,rgba(14,11,8,.85))}
+/* Centered intro copy (gold eyebrow + headline + body + brand + tagline). */
+.story-intro{max-width:760px;margin:0 auto;text-align:center}
+.story-intro .eyebrow{display:block;margin-bottom:22px}
+.story-intro h2{font-size:clamp(28px,4vw,44px);color:var(--brass-bright);margin-bottom:26px;line-height:1.25;letter-spacing:.02em}
+.story-intro p{font-size:19px;color:var(--parchment);line-height:1.8;margin-bottom:20px}
+.story-intro .story-brand{font-family:var(--display);letter-spacing:.18em;color:var(--brass-bright);font-size:20px;margin-top:36px;margin-bottom:8px}
+.story-intro .story-tagline{font-family:var(--util);text-transform:uppercase;letter-spacing:.3em;font-size:14px;color:var(--gold);margin-bottom:0}
 .story-lead{max-width:720px;margin:0 auto;text-align:center;font-size:20px;color:var(--parchment);line-height:1.7}
 .story-block{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;margin-top:60px}
 .story-block.reverse .story-media{order:2}
