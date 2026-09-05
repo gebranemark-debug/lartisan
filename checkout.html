@@ -253,7 +253,7 @@
       // Order type, derived from ?product exactly as checkout.js does
       // (kit -> "Kit Order", glass/spinning -> "Glass Order"). bundle.html links
       // here with no ?product, so kit orders record as "Kit Order".
-      var TYPE_BY_PRODUCT = { kit: "Kit Order", glass: "Glass Order", spinning: "Glass Order" };
+      var TYPE_BY_PRODUCT = { kit: "Kit Order", glass: "Glass Order", spinning: "Glass Order", woodchips: "Wood Chips Order" };
       var productKey = new URLSearchParams(location.search).get("product");
       var type = TYPE_BY_PRODUCT[productKey] || "Kit Order";
 

@@ -52,13 +52,27 @@
         "3": { label: "Spinning Glasses — Set of 3", total: "$39" },
         "4": { label: "Spinning Glasses — Set of 4", total: "$49" }
       }
+    },
+    woodchips: {
+      type: "Wood Chips Order",   // Sheet "type" column (col J) — new value
+      change: "wood-chips.html",
+      // Sets keyed by tin count (?bundle=4|6). Sheet "bundle" string becomes
+      // label + " (" + total + ")" -> "Wood Chips — Set of 4 ($10)".
+      variants: {
+        "4": { label: "Wood Chips — Set of 4", total: "$10" },
+        "6": { label: "Wood Chips — Set of 6", total: "$15" }
+      }
     }
   };
 
   function qp(name) { return new URLSearchParams(location.search).get(name); }
   var productKey = PRODUCTS.hasOwnProperty(qp("product")) ? qp("product") : "kit"; // default: kit
   var product = PRODUCTS[productKey];
-  var bundleKey = product.variants.hasOwnProperty(qp("bundle")) ? qp("bundle") : "1"; // default variant 1
+  // Default to the product's first variant when ?bundle is missing/invalid. For
+  // the kit, glasses and spinning that's "1" (unchanged behaviour); wood chips
+  // have no "1" variant, so this keeps them on a valid set ("4").
+  var variantKeys = Object.keys(product.variants);
+  var bundleKey = product.variants.hasOwnProperty(qp("bundle")) ? qp("bundle") : variantKeys[0];
   var bundle = product.variants[bundleKey];
 
   // Spinning glasses carry a per-glass design breakdown via ?d= (comma-separated,

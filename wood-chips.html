@@ -10,6 +10,12 @@
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Barlow+Condensed:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/styles.css">
 <link rel="stylesheet" href="assets/css/store.css">
+<style>
+  /* Wood Chips has two sets, so centre a 2-up bundle grid (store.css's shared
+     .bundle-grid is 3-up). Stacks to one column on phones, like the other grids. */
+  .bundle-grid.wc-grid{grid-template-columns:repeat(2,1fr);max-width:560px;margin:0 auto}
+  @media(max-width:620px){ .bundle-grid.wc-grid{grid-template-columns:1fr} }
+</style>
 </head>
 <body>
 
@@ -70,9 +76,34 @@
         </div>
       </div>
 
-      <!-- ===== PLACEHOLDER (Prompt B) =====
-           Pricing cards + "Buy it now" button go here, between the carousel
-           above and the flavour explorer below. -->
+      <!-- Pricing: Set of 4 / Set of 6 (same card format as the spinning-glasses
+           bundle; store.js wires selection + the checkout link via data-product). -->
+      <div class="bundle-grid wc-grid" role="radiogroup" aria-label="Choose a set" data-default="6">
+
+        <article class="bundle-card" data-qty="4" role="radio" aria-checked="false" tabindex="0">
+          <div class="bundle-radio" aria-hidden="true"></div>
+          <h3>Set of 4</h3>
+          <span class="bundle-sub">4 Tins</span>
+          <div class="bundle-price">$10</div>
+          <div class="bundle-note">Four woods to start the ritual.</div>
+        </article>
+
+        <article class="bundle-card" data-qty="6" role="radio" aria-checked="false" tabindex="0">
+          <div class="bundle-badges">
+            <span class="bundle-badge">Most popular</span>
+          </div>
+          <div class="bundle-radio" aria-hidden="true"></div>
+          <h3>Set of 6</h3>
+          <span class="bundle-sub">6 Tins</span>
+          <div class="bundle-price">$15</div>
+          <div class="bundle-note">All six woods, the complete range.</div>
+        </article>
+
+      </div>
+
+      <div class="bundle-cta">
+        <a class="btn btn-gold" data-buynow data-product="woodchips" href="checkout.html?product=woodchips&amp;bundle=6">Buy it now</a>
+      </div>
 
     </div>
   </section>
