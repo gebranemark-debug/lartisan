@@ -11,12 +11,9 @@
 <link rel="stylesheet" href="assets/css/styles.css">
 <link rel="stylesheet" href="assets/css/store.css">
 <style>
-  /* Fluté out of stock — carousel banner, disabled-option hint and inline error.
-     Kept inline so no shared CSS/JS file is touched. Uses the site's tokens. */
-  .flute-slide{position:relative}
-  .oos-banner{position:absolute;left:0;right:0;bottom:0;padding:11px 8px;text-align:center;background:rgba(14,11,8,.82);color:var(--brass-bright);font-family:var(--util);text-transform:uppercase;letter-spacing:.22em;font-size:14px;font-weight:600;border-top:1px solid var(--line);pointer-events:none}
+  /* Fluté is out of stock — keep its disabled dropdown option visibly greyed.
+     Inline so no shared CSS file is touched. */
   .design-select option:disabled{color:var(--parchment-dim)}
-  .flute-error{max-width:520px;margin:14px auto 0;padding:12px 16px;text-align:center;border:1px solid rgba(201,80,60,.5);background:rgba(201,80,60,.12);color:#e7cabe;border-radius:4px;font-family:var(--util);letter-spacing:.03em;font-size:14px;line-height:1.5}
 </style>
 </head>
 <body>
@@ -71,7 +68,7 @@
         <div class="carousel" data-carousel data-lightbox>
           <div class="carousel-track" data-carousel-track>
             <div class="carousel-slide"><img src="assets/img/spinning-lifestyle.jpg" alt="Spinning crystal whiskey glass on its 360° base, with decanter and city skyline" loading="eager"></div>
-            <div class="carousel-slide flute-slide"><img src="assets/img/spinning-flute.jpg" alt="Spinning glass — Fluté design (out of stock)" loading="lazy"><span class="oos-banner">Out of Stock</span></div>
+            <div class="carousel-slide"><img src="assets/img/spinning-flute.jpg" alt="Spinning glass — Fluté design" loading="lazy"></div>
             <div class="carousel-slide"><img src="assets/img/spinning-majeste.jpg" alt="Spinning glass — Majesté design" loading="lazy"></div>
             <div class="carousel-slide"><img src="assets/img/spinning-sculpte.jpg" alt="Spinning glass — Sculpté design" loading="lazy"></div>
             <div class="carousel-slide"><img src="assets/img/spinning-cisele.jpg" alt="Spinning glass — Ciselé design" loading="lazy"></div>
@@ -175,7 +172,6 @@
       <div class="bundle-cta">
         <a class="btn btn-gold" data-buynow data-product="spinning" href="checkout.html?product=spinning&amp;bundle=3">Buy it now</a>
       </div>
-      <p class="flute-error" id="fluteError" role="alert" hidden>Fluté is currently out of stock. Please choose another design.</p>
       <p class="bundle-fine">No account, no card. Choose your set and designs, check out in a minute, and pay Cash on Delivery or Whish Money — across Lebanon.</p>
 
       <!-- Demo video: real HTML5 player (native controls, sound on, no autoplay);
@@ -230,49 +226,20 @@
 <script src="assets/js/store.js"></script>
 <script src="assets/js/main.js"></script>
 <script>
-  // Fluté is out of stock: default any dropdown away from it on load, and block
-  // checkout if it is somehow still the chosen design. Additive only — this
-  // reads store.js's selects/buy button and never modifies store.js/checkout.js.
+  // Fluté is out of stock: on load, move any dropdown still resolving to it onto
+  // the next available design (Majesté), then let store.js rebuild the checkout
+  // link via its own change handler. (Disabling the option already defaults most
+  // browsers to Majesté; this is the belt-and-braces path.) Additive only —
+  // store.js/checkout.js are untouched.
   (function () {
     "use strict";
     var OOS = "Fluté", FALLBACK = "Majesté";
     var selects = document.querySelectorAll(".design-picker .design-select");
-    var rows = document.querySelectorAll(".design-picker .design-row");
-    var buyBtn = document.querySelector("[data-buynow]");
-    var errEl = document.getElementById("fluteError");
-
-    // On load: move any dropdown still resolving to the out-of-stock design onto
-    // the next design, then let store.js rebuild the checkout link via its own
-    // change handler. (Disabling the option already defaults most browsers to
-    // Majesté; this is the belt-and-braces path.)
     for (var i = 0; i < selects.length; i++) {
       if (selects[i].value === OOS) {
         selects[i].value = FALLBACK;
         selects[i].dispatchEvent(new Event("change", { bubbles: true }));
       }
-    }
-
-    // Is the out-of-stock design still chosen among the visible (in-set) glasses?
-    function fluteChosen() {
-      for (var i = 0; i < rows.length; i++) {
-        if (rows[i].style.display === "none") continue;   // not part of the chosen set
-        var s = rows[i].querySelector(".design-select");
-        if (s && s.value === OOS) return true;
-      }
-      return false;
-    }
-
-    // Capture-phase so this runs before the link's default navigation.
-    if (buyBtn) {
-      buyBtn.addEventListener("click", function (e) {
-        if (fluteChosen()) {
-          e.preventDefault();
-          e.stopPropagation();
-          if (errEl) errEl.hidden = false;
-        } else if (errEl) {
-          errEl.hidden = true;
-        }
-      }, true);
     }
   })();
 </script>
