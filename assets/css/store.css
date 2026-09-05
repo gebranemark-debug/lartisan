@@ -272,3 +272,23 @@
   .club-dialog{padding:32px 22px 26px}
   .club-dialog h3{font-size:24px}
 }
+
+/* ===== Image lightbox (product + story images) =====
+   Full-screen dark overlay showing one image scaled to fit. Injected once per
+   page by main.js and opened by clicking any [data-lightbox] image. Close by
+   clicking the backdrop or pressing Escape. Multi-image sets (the carousels and
+   the Up-close gallery) are browsable inside the lightbox — click the left/right
+   half of the image on desktop, swipe on mobile — with no visible arrows. */
+[data-lightbox] img,img[data-lightbox]{cursor:zoom-in}
+.lightbox{position:fixed;inset:0;z-index:300;display:flex;align-items:center;justify-content:center;padding:20px;background:rgba(0,0,0,.92);opacity:0;visibility:hidden;transition:opacity .22s ease,visibility .22s ease;cursor:zoom-out;-webkit-tap-highlight-color:transparent}
+.lightbox.open{opacity:1;visibility:visible}
+.lightbox img{max-width:92vw;max-height:92vh;width:auto;height:auto;object-fit:contain;display:block;border-radius:2px;box-shadow:0 24px 80px rgba(0,0,0,.6);transform:scale(.985);transition:transform .22s ease;user-select:none;-webkit-user-select:none;-webkit-user-drag:none}
+.lightbox.open img{transform:scale(1)}
+/* Multi-image sets use the image itself as the (invisible) prev/next surface. */
+.lightbox.is-multi img{cursor:pointer}
+/* Gallery captions must not intercept the click meant for the image beneath. */
+.gal-cap{pointer-events:none}
+body.lightbox-open{overflow:hidden}
+@media(prefers-reduced-motion:reduce){
+  .lightbox,.lightbox img{transition:none}
+}
