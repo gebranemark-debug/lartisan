@@ -111,6 +111,17 @@
   .bundle-badge{top:-9px;font-size:10px;padding:4px 9px;letter-spacing:.12em}
   .bundle-badges{top:-9px}
   .bundle-badges .bundle-badge{top:auto;padding:4px 9px}
+
+  /* Flavour guide (wood-chips) — scaled down so the widget isn't oversized on phones. */
+  .flav{gap:22px}
+  .flav-tab{font-size:15px;padding:8px 12px}
+  .flav-panel{padding:22px;min-height:0}
+  .flav-panel .tin{gap:13px;margin-bottom:16px}
+  .flav-panel .tin img{width:66px;height:66px}
+  .flav-panel h3{font-size:21px}
+  .flav-panel .pair{font-size:11px}
+  .flav-panel .note{font-size:15px;margin-bottom:16px}
+  .flav-panel .best{font-size:12px}
 }
 
 /* ===== Checkout / order form ===== */
@@ -172,13 +183,20 @@
 /* ===== Our Story page ===== */
 /* Page title + subtitle above the hero — its own padded band that clears the
    fixed header (same clearance as .page-head). Cinzel gold title, elegant sub. */
-.story-head{padding:150px 0 40px;text-align:center}
+.story-head{padding:150px 0 14px;text-align:center}
 .story-head h1{font-family:var(--display);text-transform:uppercase;letter-spacing:.14em;font-size:clamp(30px,4.4vw,50px);line-height:1.14;color:var(--brass-bright);margin-bottom:16px}
 .story-head .story-sub{font-family:var(--body);font-style:italic;font-size:clamp(17px,2.2vw,22px);color:var(--parchment-dim);letter-spacing:.01em}
 /* Hero image — dark, moody, no text overlay (sits directly below .story-head). */
-.story-hero{position:relative;min-height:50vh;max-height:55vh;overflow:hidden;background:var(--ink);border-bottom:1px solid var(--line-soft)}
-.story-hero img{width:100%;height:55vh;object-fit:contain;object-position:center;display:block}
+.story-hero{position:relative;min-height:70vh;max-height:75vh;overflow:hidden;background:var(--ink);border-bottom:1px solid var(--line-soft)}
+.story-hero img{width:100%;height:75vh;object-fit:contain;object-position:center;display:block}
 .story-hero::after{content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(14,11,8,.6),transparent 24%,transparent 66%,rgba(14,11,8,.85))}
+/* Below the desktop breakpoint, drop ALL height constraints on the hero and let it
+   size to the image itself — the image scales to full width at its natural height
+   (no fixed vh box, no top/bottom letterbox), sitting snug under the title band. */
+@media(max-width:960px){
+  .story-hero{min-height:0;max-height:none;height:auto}
+  .story-hero img{width:100%;height:auto;object-fit:contain;display:block}
+}
 /* Centered intro copy (gold eyebrow + headline + body + brand + tagline). */
 .story-intro{max-width:760px;margin:0 auto;text-align:center}
 .story-intro .eyebrow{display:block;margin-bottom:22px}
