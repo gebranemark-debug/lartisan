@@ -335,6 +335,18 @@
   /* Dots rendered in normal flow beneath a carousel (reviews) */
   .carousel-dots.dots-below{position:static;margin-top:24px}
 
+  /* Reduced motion: keep the reviews auto-rotating but with NO sliding — stack
+     every review in the same spot and reveal only the active one (the JS toggles
+     .rm-active), so each appears instantly where the last was. The rotation is
+     preserved; the horizontal motion is not. Grid stacking keeps the height at
+     the tallest review, so swaps don't shift the layout. Scoped to the reviews
+     carousel, so every other carousel is untouched. */
+  @media(prefers-reduced-motion:reduce){
+    .rev-carousel[data-autoplay] .rev-track{display:grid;grid-template-areas:"stack";gap:0;overflow:hidden;scroll-snap-type:none}
+    .rev-carousel[data-autoplay] .rev-track .review{grid-area:stack;width:100%;max-width:100%;visibility:hidden}
+    .rev-carousel[data-autoplay] .rev-track .review.rm-active{visibility:visible}
+  }
+
   @media(max-width:620px){
     /* Craftsman story: stacked, but with a small image so it doesn't dominate */
     .craft-inner{gap:20px}
