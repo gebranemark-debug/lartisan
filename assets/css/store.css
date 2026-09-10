@@ -37,6 +37,11 @@
 
 /* ===== Bundle page ===== */
 .bundle-wrap{max-width:920px;margin:0 auto}
+/* Kit bullets above the pricing cards — same markup/style as the Signature Kit's
+   .product-points, but laid out 2-up and centred so they stay compact and don't
+   crowd the pricing cards below. Stacks to one column on narrow phones. */
+.product-points.kit-points{grid-template-columns:1fr 1fr;gap:10px 30px;max-width:680px;margin:2px auto 32px;justify-items:start}
+@media(max-width:600px){ .product-points.kit-points{grid-template-columns:1fr;max-width:340px;gap:9px;margin:0 auto 26px} }
 /* Kit image between the intro and the bundle cards (same cutout + soft shadow
    as the product hero), moderate size so it doesn't dominate. */
 .bundle-hero{max-width:330px;margin:0 auto 42px}

@@ -298,8 +298,8 @@
   /* Atelier Collection — centered product cards (image on top, text below).
      Three cards sit side by side at EVERY width (no collapse); they shrink to
      fit rather than stacking on mobile. */
-  .glass-collection{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;max-width:960px;margin:6px auto 0}
-  .glass-card{max-width:300px;margin:0 auto;display:flex;flex-direction:column;border:1px solid var(--line);border-radius:6px;overflow:hidden;background:linear-gradient(160deg,var(--walnut-2),var(--ink));transition:border-color .3s,transform .3s,box-shadow .3s}
+  .glass-collection{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;max-width:1090px;margin:6px auto 0}
+  .glass-card{max-width:345px;margin:0 auto;display:flex;flex-direction:column;border:1px solid var(--line);border-radius:6px;overflow:hidden;background:linear-gradient(160deg,var(--walnut-2),var(--ink));transition:border-color .3s,transform .3s,box-shadow .3s}
   .glass-card:hover{border-color:var(--gold);transform:translateY(-3px);box-shadow:0 22px 54px rgba(0,0,0,.45)}
   /* Smaller carousel; images FILL a fixed 3:2 tile (matching mountain-cups-hero-2.jpg)
      with object-fit:cover — no dark bars, overflow cropped, never letterboxed. */
@@ -312,10 +312,10 @@
   /* Body fills the rest of the card (cards are equal height via grid stretch);
      the button is pinned to the bottom so both cards' BUY IT NOW line up
      regardless of how many lines the product name wraps to. */
-  .glass-card-body{padding:18px 18px 22px;text-align:center;display:flex;flex-direction:column;align-items:center;flex:1}
-  .glass-card-body h3{font-family:var(--display);font-size:22px;color:var(--brass-bright);line-height:1.15;margin-bottom:8px}
-  .glass-card-body .product-cod{font-size:11px;margin-bottom:16px}
-  .glass-card-body .btn{min-width:168px;justify-content:center;margin-top:auto}
+  .glass-card-body{padding:20px 20px 24px;text-align:center;display:flex;flex-direction:column;align-items:center;flex:1}
+  .glass-card-body h3{font-family:var(--display);font-size:24px;color:var(--brass-bright);line-height:1.15;margin-bottom:9px}
+  .glass-card-body .product-cod{font-size:12px;margin-bottom:18px}
+  .glass-card-body .btn{min-width:184px;justify-content:center;margin-top:auto}
 
   @media(max-width:960px){
     .product-grid{grid-template-columns:1fr;grid-template-areas:"head" "media" "info";column-gap:0;row-gap:26px}
@@ -323,15 +323,15 @@
   }
 
   /* ===== REVIEWS (swipeable carousel — dark cards, arrows + swipe) ===== */
-  .review{border:1px solid var(--line);border-radius:5px;padding:32px 28px;background:linear-gradient(160deg,var(--walnut-2),var(--ink));display:flex;flex-direction:column}
-  .review .stars{color:var(--gold);font-size:17px;letter-spacing:3px;margin-bottom:16px}
-  .review blockquote{font-size:18px;color:var(--parchment);line-height:1.55;font-style:italic;margin-bottom:22px;flex:1}
+  .review{border:1px solid var(--line);border-radius:5px;padding:24px 24px;background:linear-gradient(160deg,var(--walnut-2),var(--ink));display:flex;flex-direction:column}
+  .review .stars{color:var(--gold);font-size:16px;letter-spacing:3px;margin-bottom:12px}
+  .review blockquote{font-size:16px;color:var(--parchment);line-height:1.55;font-style:italic;margin-bottom:18px;flex:1}
   .review figcaption{font-family:var(--util);text-transform:uppercase;letter-spacing:.14em;font-size:13px;color:var(--brass-bright)}
   .rev-carousel{position:relative}
   .rev-viewport{position:relative}
   .rev-track{display:flex;gap:22px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:4px}
   .rev-track::-webkit-scrollbar{display:none}
-  .rev-track .review{flex:0 0 min(400px,84%);scroll-snap-align:center}
+  .rev-track .review{flex:0 0 min(340px,82%);scroll-snap-align:center}
   /* Dots rendered in normal flow beneath a carousel (reviews) */
   .carousel-dots.dots-below{position:static;margin-top:24px}
 
@@ -356,6 +356,11 @@
     .glass-card-carousel .carousel-arrow{width:26px;height:26px;font-size:15px}
     .glass-card-carousel .carousel-arrow.prev{left:5px}
     .glass-card-carousel .carousel-arrow.next{right:5px}
+    /* Reviews: extra-compact cards on phones (they were oversized). */
+    .review{padding:18px 18px}
+    .review .stars{font-size:15px;margin-bottom:10px}
+    .review blockquote{font-size:15px;margin-bottom:14px;line-height:1.5}
+    .rev-track .review{flex:0 0 min(300px,86%)}
   }
 
   @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}.reveal{opacity:1;transform:none}}
