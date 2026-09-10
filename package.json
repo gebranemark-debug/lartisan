@@ -1,0 +1,10 @@
+{
+  "name": "lartisan-alcoolique",
+  "version": "1.0.0",
+  "private": true,
+  "description": "L'Artisan Alcoolique — static storefront with Vercel serverless order endpoints (Whish payment + server-side order recording).",
+  "dependencies": {
+    "nodemailer": "^10.0.3",
+    "redis": "^4.7.0"
+  }
+}

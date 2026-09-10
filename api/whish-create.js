@@ -14,6 +14,16 @@ var SITE = "https://lartisanalcoolique.com";
 var USER_AGENT =
   "LArtisanAlcoolique/1.0 (https://lartisanalcoolique.com; orders@lartisanalcoolique.com)";
 
+// node-redis (v4) needs an explicit connect/quit per serverless invocation.
+var createClient = require("redis").createClient;
+async function withRedis(fn) {
+  var client = createClient({ url: process.env.KV_REST_API_REDIS_URL });
+  client.on("error", function (e) { if (console) console.warn("[redis] client error:", String(e)); });
+  await client.connect();
+  try { return await fn(client); }
+  finally { try { await client.quit(); } catch (e) {} }
+}
+
 module.exports = async function handler(req, res) {
   if (req.method !== "POST") {
     res.status(405).json({ ok: false, code: "method_not_allowed" });
@@ -31,6 +41,18 @@ module.exports = async function handler(req, res) {
   var amount = body.amount;   // string, order total in USD (e.g. "55")
   var invoice = body.invoice; // human-readable order description
 
+  // Full order, persisted below so the verified success callback can record it.
+  var firstName = body.firstName;
+  var lastName = body.lastName;
+  var phone = body.phone;
+  var city = body.city;
+  var address = body.address;
+  var email = body.email;
+  var bundle = body.bundle;
+  var notes = body.notes;
+  var type = body.type;
+  var designs = body.designs;
+
   // Unique per attempt, per the agreed format.
   var externalId =
     Date.now().toString() +
@@ -38,9 +60,9 @@ module.exports = async function handler(req, res) {
 
   // Keep the success redirect URL SHORT. Whish rejects an over-long
   // successRedirectUrl with itel.unknown_error, so we pass only whish=1 and the
-  // externalId. checkout.html stashes the order fields in sessionStorage keyed by
-  // externalId before redirecting; thankyou.html reads them back to record the
-  // order. (No order fields ride on the redirect URL or the Whish payload.)
+  // externalId. The order fields are persisted to Redis below (order:<externalId>)
+  // and the verified success callback reads them back to record the order
+  // server-side. (No order fields ride on the redirect URL or the Whish payload.)
   var successParams = new URLSearchParams({
     whish: "1",
     externalId: externalId
@@ -74,6 +96,22 @@ module.exports = async function handler(req, res) {
 
     if (data && data.status === true) {
       var collectUrl = (data.data && data.data.collectUrl) || data.collectUrl;
+
+      // Persist the order so the verified success callback can record it later.
+      // Best-effort: if the Redis write throws, log it but STILL return
+      // collectUrl — never block a paying customer.
+      try {
+        await withRedis(async function (r) {
+          await r.set("order:" + externalId, JSON.stringify({
+            firstName: firstName, lastName: lastName, phone: phone, city: city,
+            address: address, email: email, bundle: bundle, designs: designs || "",
+            notes: notes, type: type || "Kit Order", amount: String(amount)
+          }), { EX: 172800 });
+        });
+      } catch (e) {
+        console.error("[whish-create] order persist failed", { externalId: externalId, error: String(e) });
+      }
+
       res.status(200).json({ ok: true, collectUrl: collectUrl, externalId: externalId });
     } else {
       res.status(200).json({
