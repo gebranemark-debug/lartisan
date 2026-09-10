@@ -36,9 +36,10 @@ function laCarousel(root) {
         var d = document.createElement("button");
         d.setAttribute("aria-label", "Go to " + (idx + 1));
         d.addEventListener("click", function () {
-          track.scrollTo({ left: idx * step(), behavior: "smooth" });
+          if (swapMode) goToSwap(idx);   // reduced motion: reveal that review in place
+          else track.scrollTo({ left: idx * step(), behavior: "smooth" });
           restart();   // when auto-playing, a tapped dot resets the timer so
-                       //  the carousel doesn't immediately slide away
+                       //  the carousel doesn't immediately slide/swap away
         });
         dotsWrap.appendChild(d);
         dots.push(d);
@@ -60,16 +61,31 @@ function laCarousel(root) {
 
   // ===== optional auto-advance (opt in via data-autoplay="<ms>") =====
   // Only a carousel marked [data-autoplay] cycles on its own — every other
-  // carousel keeps the arrows/dots/swipe behaviour above, untouched. It steps
-  // one slide on a loop (wrapping last → first), pauses while the visitor is
-  // reading (hover / touch / keyboard focus) or the tab is hidden, and resumes
-  // a couple of seconds after they stop. Honours prefers-reduced-motion.
+  // carousel keeps the arrows/dots/swipe behaviour above, untouched. It advances
+  // one review on a loop, pauses while the visitor is reading (hover / touch /
+  // keyboard focus) or the tab is hidden, and resumes a couple of seconds later.
+  //
+  // prefers-reduced-motion is honoured WITHOUT giving up the rotation: normal
+  // visitors get the smooth horizontal slide; reduced-motion visitors still see
+  // every review auto-advance, but as an INSTANT in-place swap — the CSS stacks
+  // the reviews and we just reveal the active one, so there is no sliding, no
+  // animated scroll, no horizontal movement.
   var autoMs = parseInt(root.getAttribute("data-autoplay"), 10);
   var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var canAuto = autoMs > 0 && !reduceMotion && count > 1;
-  var timer = null, resumeTimer = null, held = false;
+  var canAuto = autoMs > 0 && count > 1;
+  var swapMode = canAuto && reduceMotion;   // reduced motion: swap in place, no scroll
+  var timer = null, resumeTimer = null, held = false, active = 0;
+
+  // Reduced-motion presentation: reveal only the active review and drive the
+  // dots from the tracked index (there is no scrolling to read the index from).
+  function applySwap() {
+    for (var a = 0; a < count; a++) slides[a].classList.toggle("rm-active", a === active);
+    for (var b = 0; b < dots.length; b++) dots[b].classList.toggle("active", b === active);
+  }
+  function goToSwap(i) { active = ((i % count) + count) % count; applySwap(); }
 
   function advance() {
+    if (swapMode) { goToSwap(active + 1); return; }   // reduced motion: instant next, wraps
     // Wrap on the track's real scroll extent, not the slide count: on wide
     // screens several review cards are visible at once, so scrollLeft tops out
     // before the last index — advancing by index alone would stall at the end.
@@ -93,6 +109,7 @@ function laCarousel(root) {
   function restart() { if (canAuto && !held) playAuto(); }
 
   if (canAuto) {
+    if (swapMode) applySwap();               // reveal the first review up front
     var pause = function () {
       held = true; stopAuto();
       if (resumeTimer) { clearTimeout(resumeTimer); resumeTimer = null; }
