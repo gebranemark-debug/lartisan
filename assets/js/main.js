@@ -37,6 +37,8 @@ function laCarousel(root) {
         d.setAttribute("aria-label", "Go to " + (idx + 1));
         d.addEventListener("click", function () {
           track.scrollTo({ left: idx * step(), behavior: "smooth" });
+          restart();   // when auto-playing, a tapped dot resets the timer so
+                       //  the carousel doesn't immediately slide away
         });
         dotsWrap.appendChild(d);
         dots.push(d);
@@ -55,6 +57,61 @@ function laCarousel(root) {
   if (next) next.addEventListener("click", function () { go(1); });
   track.addEventListener("scroll", function () { window.requestAnimationFrame(sync); });
   sync();
+
+  // ===== optional auto-advance (opt in via data-autoplay="<ms>") =====
+  // Only a carousel marked [data-autoplay] cycles on its own — every other
+  // carousel keeps the arrows/dots/swipe behaviour above, untouched. It steps
+  // one slide on a loop (wrapping last → first), pauses while the visitor is
+  // reading (hover / touch / keyboard focus) or the tab is hidden, and resumes
+  // a couple of seconds after they stop. Honours prefers-reduced-motion.
+  var autoMs = parseInt(root.getAttribute("data-autoplay"), 10);
+  var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var canAuto = autoMs > 0 && !reduceMotion && count > 1;
+  var timer = null, resumeTimer = null, held = false;
+
+  function advance() {
+    // Wrap on the track's real scroll extent, not the slide count: on wide
+    // screens several review cards are visible at once, so scrollLeft tops out
+    // before the last index — advancing by index alone would stall at the end.
+    var maxLeft = track.scrollWidth - track.clientWidth;
+    if (track.scrollLeft >= maxLeft - 2) {         // at the end → loop to first
+      track.scrollTo({ left: 0, behavior: "smooth" });
+      return;
+    }
+    var target = (index() + 1) * step();
+    if (target > maxLeft) target = maxLeft;        // last step settles on the end
+    track.scrollTo({ left: target, behavior: "smooth" });
+  }
+  function stopAuto() { if (timer) { clearInterval(timer); timer = null; } }
+  function playAuto() {
+    if (!canAuto || held || document.hidden) return;
+    stopAuto();
+    timer = setInterval(advance, autoMs);
+  }
+  // Called after a dot jump: restart the interval from now (unless paused),
+  // so the visitor gets the full delay before the next auto-advance.
+  function restart() { if (canAuto && !held) playAuto(); }
+
+  if (canAuto) {
+    var pause = function () {
+      held = true; stopAuto();
+      if (resumeTimer) { clearTimeout(resumeTimer); resumeTimer = null; }
+    };
+    var scheduleResume = function () {
+      if (resumeTimer) clearTimeout(resumeTimer);
+      resumeTimer = setTimeout(function () { held = false; playAuto(); }, 2500);
+    };
+    root.addEventListener("mouseenter", pause);
+    root.addEventListener("mouseleave", scheduleResume);
+    root.addEventListener("touchstart", pause, { passive: true });
+    root.addEventListener("touchend", scheduleResume, { passive: true });
+    root.addEventListener("focusin", pause);
+    root.addEventListener("focusout", scheduleResume);
+    document.addEventListener("visibilitychange", function () {
+      if (document.hidden) stopAuto(); else if (!held) playAuto();
+    });
+    playAuto();
+  }
 }
 
 // ===== init every carousel on the page =====

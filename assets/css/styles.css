@@ -322,7 +322,7 @@
     .product-head{align-self:auto}
   }
 
-  /* ===== REVIEWS (swipeable carousel — dark cards, arrows + swipe) ===== */
+  /* ===== REVIEWS (auto-playing carousel — dark cards, dots + swipe) ===== */
   .review{border:1px solid var(--line);border-radius:5px;padding:24px 24px;background:linear-gradient(160deg,var(--walnut-2),var(--ink));display:flex;flex-direction:column}
   .review .stars{color:var(--gold);font-size:16px;letter-spacing:3px;margin-bottom:12px}
   .review blockquote{font-size:16px;color:var(--parchment);line-height:1.55;font-style:italic;margin-bottom:18px;flex:1}
@@ -341,21 +341,19 @@
     .craft-photo{max-width:180px;margin:0;padding:6px}
     .craft-copy h2{font-size:25px;margin-bottom:14px;line-height:1.2}
     .craft-copy p{font-size:16px;line-height:1.6}
-    /* Phones: two cards per row — Mountain Glasses + Spinning Glasses on row 1 —
-       with the third card (Wood Chips) centered on row 2 at the same width as a
-       card above. Shrink the gap + padding and product name/specs so the photo
-       dominates the card. Button stays full-width and tappable. */
-    .glass-collection{grid-template-columns:repeat(2,1fr);gap:14px}
-    /* Third card sits alone on row 2: span both columns, then cap the width back
-       to one column and center it so it matches the cards above. */
-    .glass-collection .glass-card:nth-child(3){grid-column:1 / -1;max-width:calc((100% - 14px) / 2);margin:0 auto}
-    .glass-card-body{padding:9px 8px 13px}
-    .glass-card-body h3{font-size:13px;margin-bottom:4px;line-height:1.1}
-    .glass-card-body .product-cod{font-size:8px;letter-spacing:.03em;margin-bottom:9px;line-height:1.35}
-    .glass-card-body .btn{min-width:0;width:100%;padding:11px 6px;font-size:12px;letter-spacing:.06em;gap:5px}
-    .glass-card-carousel .carousel-arrow{width:26px;height:26px;font-size:15px}
-    .glass-card-carousel .carousel-arrow.prev{left:5px}
-    .glass-card-carousel .carousel-arrow.next{right:5px}
+    /* Phones: ONE card per row so each product photo, name and specs read
+       clearly at a glance — the old 2-up layout shrank the cards to ~150px,
+       too small to register as products. Single column, capped to a
+       comfortable width and centered; the card format (photo → name → specs
+       → BUY IT NOW) is unchanged, just about twice the size. The image tile
+       keeps its 3:2 ratio, so it scales up with the card. Arrows revert to
+       their base 34px so they stay easy to tap. */
+    .glass-collection{grid-template-columns:1fr;gap:26px;max-width:430px}
+    .glass-card{max-width:100%}
+    .glass-card-body{padding:18px 18px 22px}
+    .glass-card-body h3{font-size:21px;margin-bottom:7px;line-height:1.15}
+    .glass-card-body .product-cod{font-size:12px;letter-spacing:.03em;margin-bottom:16px;line-height:1.4}
+    .glass-card-body .btn{min-width:200px;width:auto;padding:14px 26px;font-size:14px;letter-spacing:.1em;gap:8px}
     /* Reviews: extra-compact cards on phones (they were oversized). */
     .review{padding:18px 18px}
     .review .stars{font-size:15px;margin-bottom:10px}
