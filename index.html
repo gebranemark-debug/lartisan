@@ -217,8 +217,10 @@
       <h2>What people are saying</h2>
       <div class="divider"><span class="dl"></span><img src="assets/img/fleur.png" alt="" class="fleur-img"><span class="dl"></span></div>
     </div>
-    <!-- Swipeable review carousel (dark cards, arrows + swipe) -->
-    <div class="rev-carousel reveal" data-carousel>
+    <!-- Auto-playing review carousel (dark cards): advances every ~4.5s and
+         loops through all reviews, pausing while the visitor hovers or touches
+         a card, then resuming. Dots + swipe still work; no arrow buttons. -->
+    <div class="rev-carousel reveal" data-carousel data-autoplay="4500">
       <div class="rev-viewport">
         <div class="rev-track" id="revTrack" data-carousel-track>
           <figure class="review">
@@ -247,8 +249,6 @@
             <figcaption>Maya F. · Byblos</figcaption>
           </figure>
         </div>
-        <button class="carousel-arrow prev" aria-label="Previous review">&#8249;</button>
-        <button class="carousel-arrow next" aria-label="Next review">&#8250;</button>
       </div>
       <div class="carousel-dots dots-below" id="revDots" data-carousel-dots></div>
     </div>
