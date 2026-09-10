@@ -261,9 +261,10 @@
 
       if (btn) { btn.disabled = true; btn.classList.add("is-loading"); btn.textContent = "Redirecting to Whish…"; }
 
-      // The order fields ride along so whish-create.js can thread them into the
-      // success redirect URL; thankyou.html records the order (Sheet + email)
-      // once the payment completes. The COD flow in checkout.js is untouched.
+      // Post the full order to /api/whish-create, which persists it server-side
+      // (Redis) and returns the Whish collect URL. The verified success callback
+      // (/api/whish-success) records the order — Google Sheet row + confirmation
+      // email. The COD flow in checkout.js is untouched.
       fetch("/api/whish-create", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -278,31 +279,15 @@
           email: val("email"),
           bundle: bundleLabel,
           notes: val("notes"),
-          type: type
+          type: type,
+          designs: designs
         })
       })
         .then(function (r) { return r.json(); })
         .then(function (data) {
           if (data && data.ok && data.collectUrl) {
-            // Bridge the order fields to thankyou.html via sessionStorage, keyed
-            // by externalId. The success redirect URL now carries only
-            // whish=1 & externalId (a long redirect URL made Whish return
-            // itel.unknown_error). Best-effort — never block the payment redirect.
-            try {
-              sessionStorage.setItem("whish_order_" + data.externalId, JSON.stringify({
-                firstName: val("firstName"),
-                lastName: val("lastName"),
-                phone: val("phone"),
-                city: val("city"),
-                address: val("address"),
-                email: val("email"),
-                bundle: bundleLabel,
-                designs: designs,
-                notes: val("notes"),
-                type: type,
-                amount: amount
-              }));
-            } catch (e) { /* best-effort; still redirect to complete the payment */ }
+            // Order fields are already persisted server-side (Redis) by
+            // /api/whish-create — nothing to stash locally. Head to Whish.
             window.location.href = data.collectUrl;
           }
           else { showError(); }
