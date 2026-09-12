@@ -326,7 +326,9 @@
   .glass-card-body{padding:20px 20px 24px;text-align:center;display:flex;flex-direction:column;align-items:center;flex:1}
   .glass-card-body h3{font-family:var(--display);font-size:24px;color:var(--brass-bright);line-height:1.15;margin-bottom:9px}
   .glass-card-body .product-cod{font-size:12px;margin-bottom:18px}
-  .glass-card-body .btn{min-width:184px;justify-content:center;margin-top:auto}
+  /* Larger BUY IT NOW label so the text is better proportioned to the button;
+     button size/padding/shape/colour are unchanged — only the text grows. */
+  .glass-card-body .btn{min-width:184px;justify-content:center;margin-top:auto;font-size:18px;white-space:nowrap}
 
   @media(max-width:960px){
     .product-grid{grid-template-columns:1fr;grid-template-areas:"head" "media" "info";column-gap:0;row-gap:26px}
@@ -390,7 +392,7 @@
     .glass-card-body{padding:18px 18px 22px}
     .glass-card-body h3{font-size:21px;margin-bottom:7px;line-height:1.15}
     .glass-card-body .product-cod{font-size:12px;letter-spacing:.03em;margin-bottom:16px;line-height:1.4}
-    .glass-card-body .btn{min-width:200px;width:auto;padding:14px 26px;font-size:14px;letter-spacing:.1em;gap:8px}
+    .glass-card-body .btn{min-width:200px;width:auto;padding:14px 26px;font-size:16px;letter-spacing:.1em;gap:8px}
     /* Reviews: extra-compact cards on phones (they were oversized). */
     .review{padding:26px 20px 22px}
     .review .stars{font-size:15px}
