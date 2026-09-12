@@ -34,8 +34,10 @@
   .nav-links a:hover{color:var(--brass-bright)}
   .nav-links a:hover::after{width:100%}
   .nav-cta{flex:none}
-  .burger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:6px}
-  .burger span{width:26px;height:2px;background:var(--brass);transition:.3s}
+  /* Menu button: three vertical dots (kebab) rather than hamburger lines. */
+  .burger{display:none;flex-direction:column;align-items:center;gap:4px;background:none;border:none;cursor:pointer;padding:8px 7px}
+  .burger span{width:5px;height:5px;border-radius:50%;background:var(--brass);transition:.3s}
+  .burger:hover span{background:var(--brass-bright)}
 
   .hero{position:relative;min-height:min(100vh,760px);display:flex;align-items:center;overflow:hidden;background:radial-gradient(120% 90% at 70% 20%, rgba(107,78,42,.22), transparent 55%),radial-gradient(100% 80% at 20% 90%, rgba(34,24,17,.9), transparent 60%),var(--ink);border-bottom:1px solid var(--line-soft)}
   .smoke{position:absolute;inset:0;pointer-events:none;z-index:1;opacity:.9}
@@ -238,15 +240,24 @@
     .band{padding:60px 0}
     .home .band{padding:34px 0}
   }
-  /* Full-screen overlay sits ABOVE the fixed header (z-index:100) so nothing —
-     brand mark or burger — shows through when the menu is open. */
-  .mobile-menu{display:none;position:fixed;inset:0;z-index:200;background:rgba(14,11,8,.98);flex-direction:column;align-items:center;justify-content:center;gap:30px}
-  .mobile-menu.open{display:flex}
-  .mobile-menu a{font-family:var(--display);font-size:28px;color:var(--brass-bright);letter-spacing:.08em}
-  .mobile-menu .btn{margin-top:14px}
-  /* Close (X) is position:fixed so it stays pinned top-right even if the open
-     menu scrolls; z-index keeps it above the menu links. */
-  .mobile-menu .close{position:fixed;top:26px;right:28px;z-index:1;background:none;border:none;color:var(--brass);font-size:34px;cursor:pointer;line-height:1}
+  /* Mobile nav is a right-side DRAWER. .mobile-menu is the dimmed backdrop over
+     the page (above the fixed header, z-index:100); .drawer-panel slides in
+     from the right. The layer stays in the DOM (toggled via visibility, not
+     display) so the slide can animate in and out; the global
+     prefers-reduced-motion rule strips the transitions, so for those users the
+     drawer simply appears/disappears with no slide. */
+  .mobile-menu{position:fixed;inset:0;z-index:200;background:rgba(8,6,4,0);visibility:hidden;transition:background .35s ease,visibility 0s linear .35s}
+  .mobile-menu.open{visibility:visible;background:rgba(8,6,4,.6);transition:background .35s ease}
+  .drawer-panel{position:absolute;top:0;right:0;height:100%;width:66%;max-width:280px;display:flex;flex-direction:column;gap:2px;padding:74px 24px 28px;background:linear-gradient(180deg,var(--walnut-2),var(--ink));border-left:1px solid var(--line);box-shadow:-18px 0 44px rgba(0,0,0,.5);transform:translateX(100%);transition:transform .35s cubic-bezier(.4,0,.2,1)}
+  .mobile-menu.open .drawer-panel{transform:translateX(0)}
+  /* Compact, left-aligned menu items (plain links only — the Order button keeps
+     its button styling). */
+  .mobile-menu a:not(.btn){font-family:var(--display);font-size:19px;color:var(--brass-bright);letter-spacing:.05em;padding:13px 4px;border-bottom:1px solid var(--line-soft);transition:color .25s}
+  .mobile-menu a:not(.btn):hover{color:#fff}
+  .mobile-menu .btn{margin-top:18px;width:100%;justify-content:center}
+  /* Close (X) pinned to the top-right corner of the drawer panel. */
+  .mobile-menu .close{position:absolute;top:14px;right:16px;z-index:1;background:none;border:none;color:var(--brass);font-size:30px;cursor:pointer;line-height:1;padding:4px 6px}
+  .mobile-menu .close:hover{color:var(--brass-bright)}
   /* When the menu is open store.js sets the burger's aria-expanded="true";
      hide it completely (not just cover it) so only the X shows. */
   .burger[aria-expanded="true"]{display:none}
@@ -276,8 +287,12 @@
   /* Desktop only: narrow the media column so the tile is noticeably smaller.
      (Mobile keeps the single-column layout from the max-width:960px block.) */
   @media(min-width:961px){ #product .product-grid{grid-template-columns:400px 1fr} }
-  .carousel-arrow{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:rgba(14,11,8,.55);backdrop-filter:blur(4px);color:var(--brass);font-size:26px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .3s,color .3s;z-index:2}
-  .carousel-arrow:hover{background:var(--gold);color:var(--ink)}
+  /* Circular prev/next buttons: a visible brass ring, a near-solid dark fill and
+     a soft drop shadow so they read clearly as tappable controls (not just an
+     overlaid glyph). Same gold/dark language; fills gold on hover, dips on tap. */
+  .carousel-arrow{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;border:2px solid var(--brass);background:rgba(14,11,8,.82);backdrop-filter:blur(4px);color:var(--brass-bright);font-size:26px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 12px rgba(0,0,0,.4);transition:background .3s,color .3s,border-color .3s,box-shadow .3s,transform .15s;z-index:2}
+  .carousel-arrow:hover{background:var(--gold);color:var(--ink);border-color:var(--gold);box-shadow:0 4px 16px rgba(160,114,42,.5)}
+  .carousel-arrow:active{transform:translateY(-50%) scale(.92)}
   .carousel-arrow.prev{left:12px}
   .carousel-arrow.next{right:12px}
   .carousel-dots{position:absolute;bottom:14px;left:0;right:0;display:flex;gap:8px;justify-content:center;z-index:2}
