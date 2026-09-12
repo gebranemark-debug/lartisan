@@ -287,12 +287,8 @@
   /* Desktop only: narrow the media column so the tile is noticeably smaller.
      (Mobile keeps the single-column layout from the max-width:960px block.) */
   @media(min-width:961px){ #product .product-grid{grid-template-columns:400px 1fr} }
-  /* Circular prev/next buttons: a visible brass ring, a near-solid dark fill and
-     a soft drop shadow so they read clearly as tappable controls (not just an
-     overlaid glyph). Same gold/dark language; fills gold on hover, dips on tap. */
-  .carousel-arrow{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;border:2px solid var(--brass);background:rgba(14,11,8,.82);backdrop-filter:blur(4px);color:var(--brass-bright);font-size:26px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 12px rgba(0,0,0,.4);transition:background .3s,color .3s,border-color .3s,box-shadow .3s,transform .15s;z-index:2}
-  .carousel-arrow:hover{background:var(--gold);color:var(--ink);border-color:var(--gold);box-shadow:0 4px 16px rgba(160,114,42,.5)}
-  .carousel-arrow:active{transform:translateY(-50%) scale(.92)}
+  .carousel-arrow{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:rgba(14,11,8,.55);backdrop-filter:blur(4px);color:var(--brass);font-size:26px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .3s,color .3s;z-index:2}
+  .carousel-arrow:hover{background:var(--gold);color:var(--ink)}
   .carousel-arrow.prev{left:12px}
   .carousel-arrow.next{right:12px}
   .carousel-dots{position:absolute;bottom:14px;left:0;right:0;display:flex;gap:8px;justify-content:center;z-index:2}
