@@ -336,7 +336,11 @@
   /* ===== REVIEWS (auto-playing carousel — dark cards, dots + swipe) ===== */
   .review{border:1px solid var(--line);border-radius:5px;padding:24px 24px;background:linear-gradient(160deg,var(--walnut-2),var(--ink));display:flex;flex-direction:column}
   .review .stars{color:var(--gold);font-size:16px;letter-spacing:3px;margin-bottom:12px}
-  .review blockquote{font-size:16px;color:var(--parchment);line-height:1.55;font-style:italic;margin-bottom:18px;flex:1}
+  /* Review quotes use a clean, upright sans-serif (not the italic serif body
+     font): far more legible now that quotes mix Lebanese-Arabic transliteration
+     and French. Only the quote paragraph changes; the name/city label keeps its
+     Barlow Condensed styling. */
+  .review blockquote{font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif;font-size:16px;color:var(--parchment);line-height:1.6;font-style:normal;margin-bottom:18px;flex:1}
   .review figcaption{font-family:var(--util);text-transform:uppercase;letter-spacing:.14em;font-size:13px;color:var(--brass-bright)}
   .rev-carousel{position:relative}
   .rev-viewport{position:relative}
