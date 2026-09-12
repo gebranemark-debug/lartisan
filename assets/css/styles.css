@@ -37,7 +37,7 @@
   .burger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:6px}
   .burger span{width:26px;height:2px;background:var(--brass);transition:.3s}
 
-  .hero{position:relative;min-height:100vh;display:flex;align-items:center;overflow:hidden;background:radial-gradient(120% 90% at 70% 20%, rgba(107,78,42,.22), transparent 55%),radial-gradient(100% 80% at 20% 90%, rgba(34,24,17,.9), transparent 60%),var(--ink);border-bottom:1px solid var(--line-soft)}
+  .hero{position:relative;min-height:min(100vh,760px);display:flex;align-items:center;overflow:hidden;background:radial-gradient(120% 90% at 70% 20%, rgba(107,78,42,.22), transparent 55%),radial-gradient(100% 80% at 20% 90%, rgba(34,24,17,.9), transparent 60%),var(--ink);border-bottom:1px solid var(--line-soft)}
   .smoke{position:absolute;inset:0;pointer-events:none;z-index:1;opacity:.9}
   .smoke i{position:absolute;bottom:-140px;width:340px;height:340px;border-radius:50%;background:radial-gradient(circle, rgba(201,168,104,.13), transparent 68%);filter:blur(28px);animation:rise 18s linear infinite}
   .smoke i:nth-child(1){left:12%;animation-delay:0s}
@@ -348,6 +348,10 @@
   }
 
   @media(max-width:620px){
+    /* Phones show the worst gap under the scroll cue (tall screens, short copy).
+       Cap the hero height so "What's Inside" sits closer below; min(100vh,…)
+       means short phones keep their original height and never crowd the header. */
+    .hero{min-height:min(100vh,660px)}
     /* Craftsman story: stacked, but with a small image so it doesn't dominate */
     .craft-inner{gap:20px}
     .craft-photo{max-width:180px;margin:0;padding:6px}
