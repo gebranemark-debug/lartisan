@@ -24,8 +24,8 @@
      product-card buttons (.glass-card-body .btn) so every buy-now button reads
      at the same size. Only the text size changes — button size, padding, shape
      and colour are unchanged; nowrap keeps the label on a single line. */
-  .btn.btn-gold.buynow{font-size:18px;white-space:nowrap}
-  @media(max-width:620px){ .btn.btn-gold.buynow{font-size:16px} }
+  .btn.btn-gold.buynow{font-size:18px!important;white-space:nowrap}
+  @media(max-width:620px){ .btn.btn-gold.buynow{font-size:16px!important} }
   .wa-ico{width:17px;height:17px;fill:currentColor}
 
   header{position:fixed;top:0;left:0;right:0;z-index:100;transition:background .4s,border-color .4s,padding .4s;border-bottom:1px solid transparent;padding:22px 0}
