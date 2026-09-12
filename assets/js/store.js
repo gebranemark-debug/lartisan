@@ -15,6 +15,10 @@
     burger.setAttribute("aria-expanded", isOpen ? "true" : "false");
   };
   if (closeBtn) closeBtn.onclick = closeMenu;
+  // Tapping the dimmed backdrop (the overlay itself, never the drawer panel or
+  // a link inside it) closes the drawer; Escape closes it too.
+  if (mm) mm.addEventListener("click", function (e) { if (e.target === mm) closeMenu(); });
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeMenu(); });
 
   // ---- header scroll state ----
   var hdr = document.getElementById("hdr");
