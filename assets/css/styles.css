@@ -19,6 +19,13 @@
   .btn-gold:hover{background:var(--brass);border-color:var(--brass);transform:translateY(-2px)}
   .btn-ghost{background:transparent;color:var(--brass)}
   .btn-ghost:hover{background:rgba(160,114,42,.1);transform:translateY(-2px)}
+  /* Enlarged BUY IT NOW label on the buy-now gold buttons outside the Atelier
+     cards (marked .buynow): 18px desktop / 16px mobile, matching the Atelier
+     product-card buttons (.glass-card-body .btn) so every buy-now button reads
+     at the same size. Only the text size changes — button size, padding, shape
+     and colour are unchanged; nowrap keeps the label on a single line. */
+  .btn.btn-gold.buynow{font-size:18px;white-space:nowrap}
+  @media(max-width:620px){ .btn.btn-gold.buynow{font-size:16px} }
   .wa-ico{width:17px;height:17px;fill:currentColor}
 
   header{position:fixed;top:0;left:0;right:0;z-index:100;transition:background .4s,border-color .4s,padding .4s;border-bottom:1px solid transparent;padding:22px 0}
