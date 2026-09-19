@@ -14,7 +14,7 @@
 //
 // Sandbox only for now.
 
-var WHISH_BASE = "https://partner.api.sbx.whish.money/itel-service/api";
+var WHISH_BASE = "https://api.whish.money/itel-service/api";
 var USER_AGENT =
   "LArtisanAlcoolique/1.0 (https://lartisanalcoolique.com; orders@lartisanalcoolique.com)";
 

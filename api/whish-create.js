@@ -9,7 +9,7 @@
 //
 // Sandbox only for now — do NOT point this at the production Whish host.
 
-var WHISH_BASE = "https://partner.api.sbx.whish.money/itel-service/api";
+var WHISH_BASE = "https://api.whish.money/itel-service/api";
 var SITE = "https://lartisanalcoolique.com";
 var USER_AGENT =
   "LArtisanAlcoolique/1.0 (https://lartisanalcoolique.com; orders@lartisanalcoolique.com)";
