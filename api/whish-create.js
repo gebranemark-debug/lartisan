@@ -1,5 +1,5 @@
 // POST /api/whish-create
-// Initiates a Whish (sandbox) payment and returns the hosted "collect" URL the
+// Initiates a Whish payment and returns the hosted "collect" URL the
 // browser should redirect to. Called by checkout.html when the customer chooses
 // "Pay with Whish" and submits the order form.
 //
