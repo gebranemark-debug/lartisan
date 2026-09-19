@@ -7,7 +7,7 @@
 // client:
 //   WHISH_CHANNEL, WHISH_SECRET, WHISH_WEBSITE_URL
 //
-// Sandbox only for now — do NOT point this at the production Whish host.
+// Live: this points at the PRODUCTION Whish host.
 
 var WHISH_BASE = "https://api.whish.money/itel-service/api";
 var SITE = "https://lartisanalcoolique.com";
