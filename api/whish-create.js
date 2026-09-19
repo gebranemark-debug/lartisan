@@ -1,5 +1,5 @@
 // POST /api/whish-create
-// Initiates a Whish (sandbox) payment and returns the hosted "collect" URL the
+// Initiates a Whish payment and returns the hosted "collect" URL the
 // browser should redirect to. Called by checkout.html when the customer chooses
 // "Pay with Whish" and submits the order form.
 //
@@ -7,9 +7,9 @@
 // client:
 //   WHISH_CHANNEL, WHISH_SECRET, WHISH_WEBSITE_URL
 //
-// Sandbox only for now — do NOT point this at the production Whish host.
+// Live: this points at the PRODUCTION Whish host.
 
-var WHISH_BASE = "https://partner.api.sbx.whish.money/itel-service/api";
+var WHISH_BASE = "https://api.whish.money/itel-service/api";
 var SITE = "https://lartisanalcoolique.com";
 var USER_AGENT =
   "LArtisanAlcoolique/1.0 (https://lartisanalcoolique.com; orders@lartisanalcoolique.com)";

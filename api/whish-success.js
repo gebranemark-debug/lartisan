@@ -12,9 +12,9 @@
 // Whish requires an HTTP 200 to acknowledge the callback, so this ALWAYS
 // responds 200 — verified or not, already-recorded or errored.
 //
-// Sandbox only for now.
+// Live: this points at the PRODUCTION Whish host.
 
-var WHISH_BASE = "https://partner.api.sbx.whish.money/itel-service/api";
+var WHISH_BASE = "https://api.whish.money/itel-service/api";
 var USER_AGENT =
   "LArtisanAlcoolique/1.0 (https://lartisanalcoolique.com; orders@lartisanalcoolique.com)";
 
